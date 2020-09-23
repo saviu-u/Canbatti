@@ -5,6 +5,7 @@
  */
 package controllers.admin;
 
+import javax.servlet.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,7 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloWorld {
     
     @RequestMapping("/teste")
-    public String teste(){
+    public String teste(HttpServletRequest request, HttpServletResponse response){
+        System.out.println("******");
+        System.out.println(request.getCookies().length);
+        Cookie cookie = new Cookie("teste", "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
         return "index";
     }
     

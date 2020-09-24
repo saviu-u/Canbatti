@@ -14,17 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author savio
  */
 @Controller
-@RequestMapping("/admin")
-public class HelloWorld {
+@RequestMapping("/admin/orders")
+public class AdminOrdersController {
     
-    @RequestMapping("/teste")
-    public String teste(HttpServletRequest request, HttpServletResponse response){
-        System.out.println("******");
-        System.out.println(request.getCookies().length);
-        Cookie cookie = new Cookie("teste", "");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-        return "index";
+    @RequestMapping
+    public String index(HttpServletRequest request, HttpServletResponse response){
+        if(!AdminLoginController.Authentication(request, response)) return "redirect:login";
+        
+        return "admin/orders";
     }
     
 }

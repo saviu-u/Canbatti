@@ -1,0 +1,82 @@
+CREATE TABLE tb_funcao(
+id_func 			SERIAL,
+nome_func 			VARCHAR(12) NOT NULL,
+CONSTRAINT tb_funcao_id_func PRIMARY KEY(id_func)
+);
+
+CREATE TABLE tb_endereco(
+id_end SERIAL,
+estado VARCHAR(45) NOT NULL,
+cidade VARCHAR(45) NOT NULL,
+bairro VARCHAR(45) NOT NULL,
+rua VARCHAR(45) NOT NULL,
+num_residencia INTEGER NOT NULL,
+complemento VARCHAR(10),
+CONSTRAINT tb_endereco_id_end PRIMARY KEY(id_end)
+);
+
+CREATE TABLE tb_pessoa(
+id_pes SERIAL,
+id_end INTEGER UNIQUE,
+id_func INTEGER,
+nome_pes VARCHAR(255) NOT NULL,
+cpf VARCHAR(14) NOT NULL UNIQUE,
+email VARCHAR(60) NOT NULL UNIQUE,
+telefone_1 INTEGER NOT NULL,
+telefone_2 INTEGER,
+sexo VARCHAR(1) NOT NULL,
+ativo BOOL NOT NULL,
+CONSTRAINT tb_pessoa_id PRIMARY KEY(id_pes),
+CONSTRAINT tb_pessoa_funcao_id FOREIGN KEY(id_func) REFERENCES tb_funcao(id_func),
+CONSTRAINT tb_pessoa_endereco_id FOREIGN KEY(id_end) REFERENCES tb_endereco(id_end)
+);
+ALTER TABLE tb_pessoa
+ADD senha	VARCHAR(15);
+
+CREATE TABLE tb_pedidos(
+id_pedido			SERIAL,
+id_pes				SERIAL,
+data_ped			DATE,
+status_ped			BOOL,
+CONSTRAINT tb_pedidos_id_pedido PRIMARY KEY(id_pedido),
+CONSTRAINT tb_pedidos_id_pes FOREIGN KEY(id_pes)
+	REFERENCES tb_pessoa(id_pes)
+);
+
+CREATE TABLE tb_produtos(
+id_prod				SERIAL,
+nome_prod			VARCHAR(30),
+tipo_prod			VARCHAR(25),
+desc_prod			VARCHAR(60),
+preco_prod			DECIMAL(10,2),
+quantidade			INTEGER,
+CONSTRAINT tb_produtos_id_produto PRIMARY KEY(id_prod)
+);
+
+CREATE TABLE tb_item_pedido(
+id_item				SERIAL,
+id_prod				SERIAL,
+id_pedido			SERIAL,
+produto				VARCHAR(250),
+quantidade			INTEGER,
+valor_total			DECIMAL(10,2),
+CONSTRAINT tb_item_pedido_id_item PRIMARY KEY(id_item),
+CONSTRAINT tb_item_pedido_id_prod FOREIGN KEY(id_prod)
+	REFERENCES tb_produtos(id_prod),
+CONSTRAINT tb_item_pedido_id_pedido FOREIGN KEY(id_pedido)
+	REFERENCES tb_pedidos(id_pedido)
+);
+
+CREATE TABLE tb_delivery(
+id_del				SERIAL,
+id_end				SERIAL UNIQUE,
+id_item				SERIAL,
+status_del			BOOL,
+quantidade			INTEGER,
+valor_total			DECIMAL(10,2),
+CONSTRAINT tb_delivery_id_del PRIMARY KEY(id_del),
+CONSTRAINT tb_delivery_id_end FOREIGN KEY(id_end)
+	REFERENCES tb_endereco(id_end),
+CONSTRAINT tb_delivery_id_item FOREIGN KEY(id_item)
+	REFERENCES tb_item_pedido(id_item)
+);

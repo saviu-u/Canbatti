@@ -29,11 +29,11 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 order-md-1">
-          <form class="needs-validation" novalidate>
+          <form class="needs-validation" method="POST" novalidate>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">Nome Completo</label>
-                <input type="text" class="form-control" id="nome" placeholder="" value="" required>
+                <input type="text" class="form-control" id="nome" placeholder="" name="nomePes" value="">
                 <div class="invalid-feedback">
                   Insira um nome válido.
                 </div>
@@ -41,67 +41,67 @@
             </div>
             <div class="mb-3">
               <label for="cpf">CPF</label>
-              <input type="text" class="form-control" id="cpf" required>
+              <input type="text" class="form-control" name="cpf" id="cpf">
               <div class="invalid-feedback">
                 Insira o CPF.
               </div>
             </div>
             <div class="mb-3">
               <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" placeholder="" required>
+              <input type="text" class="form-control" id="email" placeholder="" name="email">
               <div class="invalid-feedback">
                 Insira o email.
               </div>
             </div>
             <div class="mb-3">
               <label for="telefone1">Telefone 1</label>
-              <input type="text" class="form-control" id="telefone1" placeholder="" required>
+              <input type="text" class="form-control" id="telefone1" placeholder="" name="telefone1">
               <div class="invalid-feedback">
                 Insira o telefone.
               </div>
             </div>
             <div class="mb-3">
               <label for="telefone2">Telefone 2<span class="text-muted">(Opcional)</span></label>
-              <input type="text" class="form-control" id="telefone2" placeholder="">
+              <input type="text" class="form-control" id="telefone2" placeholder="" name="telefone2">
             </div>
             <div class="mb-3">
               <label for="estado">Estado</label>
-              <input type="text" class="form-control" id="estado" placeholder="" required>
+              <input type="text" class="form-control" id="estado" placeholder="" name="estado">
               <div class="invalid-feedback">
                 Insira o estado(UF).
               </div>
             </div>
             <div class="mb-3">
               <label for="cidade">Cidade</label>
-              <input type="text" class="form-control" id="cidade" placeholder="" required>
+              <input type="text" class="form-control" id="cidade" placeholder="" name="cidade">
               <div class="invalid-feedback">
                 Insira a cidade.
               </div>
             </div>
             <div class="mb-3">
               <label for="bairro">Bairro</label>
-              <input type="text" class="form-control" id="bairro" placeholder="" required>
+              <input type="text" class="form-control" id="bairro" placeholder="" name="bairro">
               <div class="invalid-feedback">
                 Insira o bairro.
               </div>
             </div>
             <div class="mb-3">
               <label for="rua">Rua</label>
-              <input type="text" class="form-control" id="address" placeholder="" required>
+              <input type="text" class="form-control" id="address" placeholder="" name="rua">
               <div class="invalid-feedback">
                 Insira a rua.
               </div>
             </div>
             <div class="mb-3">
               <label for="num_residencia">Número Residência</label>
-              <input type="text" class="form-control" id="num_residencia" placeholder="" required>
+              <input type="text" class="form-control" id="num_residencia" placeholder="" name="numResidencia">
               <div class="invalid-feedback">
                 Insira o número da residência.
               </div>
             </div>
             <div class="mb-3">
               <label for="complemento">Complemento<span class="text-muted">(Opcional)</span></label>
-              <input type="text" class="form-control" id="complemento" placeholder="">
+              <input type="text" class="form-control" id="complemento" placeholder="" name="complemento">
             </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>

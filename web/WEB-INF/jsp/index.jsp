@@ -4,6 +4,27 @@
     Author     : savio
 --%>
 
+<%-- 
+
+
+
+
+
+
+
+        LEMBRETE, ESSA É A PAGINA DE INDEX
+
+
+
+
+
+
+
+
+
+--%>
+
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -15,16 +36,16 @@
     <title>Signin Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="resources/css/login.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/resources/css/login.css" rel="stylesheet">
   </head>
 
   <body class="text-center">
     <div>
       <form class="form-signin">
-        <img class="mb-4" src="resources/imagens/logo.png" alt="" width="200" height="80">
+        <img class="mb-4" src="<%= request.getContextPath() %>/resources/imagens/logo.png" alt="" width="200" height="80">
         <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email" required>
         <label for="inputPassword" class="sr-only">Senha</label>

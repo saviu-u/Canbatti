@@ -10,7 +10,9 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
@@ -20,6 +22,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.NoResultException;
@@ -55,6 +58,19 @@ public class Pessoa extends DAO implements Serializable {
 
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 16)
+    @Column(name = "telefone_1")
+    private String telefone1;
+    @Size(max = 16)
+    @Column(name = "telefone_2")
+    private String telefone2;
+
+    @JoinColumn(name = "id_end", referencedColumnName = "id_end")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Endereco idEnd;
+
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 44)
     @Column(name = "senha")
     private String senha;
@@ -79,18 +95,12 @@ public class Pessoa extends DAO implements Serializable {
     @Pattern(regexp="([1-9]{3}\\.){2}[1-9]{3}\\-[1-9]{2}", message="invalido")
     @Column(name = "cpf")
     private String cpf;
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="inválido")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "telefone_1")
-    private int telefone1;
-    @Column(name = "telefone_2")
-    private Integer telefone2;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
@@ -111,8 +121,15 @@ public class Pessoa extends DAO implements Serializable {
     public Pessoa(Integer idPes) {
         this.idPes = idPes;
     }
+    
+    @Override
+    public boolean valid(){
+        List<Object> classes = new ArrayList<>();
+        if(idEnd != null) classes.add(idEnd);
+        return valid(classes);
+    }
 
-    public Pessoa(Integer idPes, String nomePes, String cpf, String email, int telefone1, String sexo, boolean customer, boolean ativo) {
+    public Pessoa(Integer idPes, String nomePes, String cpf, String email, String telefone1, String sexo, boolean customer, boolean ativo) {
         this.idPes = idPes;
         this.nomePes = nomePes;
         this.cpf = cpf;
@@ -169,19 +186,19 @@ public class Pessoa extends DAO implements Serializable {
         this.email = email;
     }
 
-    public int getTelefone1() {
+    public String getTelefone1() {
         return telefone1;
     }
 
-    public void setTelefone1(int telefone1) {
+    public void setTelefone1(String telefone1) {
         this.telefone1 = telefone1;
     }
 
-    public Integer getTelefone2() {
+    public String getTelefone2() {
         return telefone2;
     }
 
-    public void setTelefone2(Integer telefone2) {
+    public void setTelefone2(String telefone2) {
         this.telefone2 = telefone2;
     }
 
@@ -214,7 +231,16 @@ public class Pessoa extends DAO implements Serializable {
     }
 
     public void setSenha(String senha) {
+        if(senha == null) return;
         this.senha = Pessoa.convertPassword(senha);
+    }
+    
+    public Endereco getIdEnd() {
+        return idEnd;
+    }
+
+    public void setIdEnd(Endereco idEnd) {
+        this.idEnd = idEnd;
     }
     
     public static String convertPassword(String pass){
@@ -259,5 +285,4 @@ public class Pessoa extends DAO implements Serializable {
     public void setAuthentication(Authentication authentication) {
         this.authentication = authentication;
     }
-    
 }

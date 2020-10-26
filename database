@@ -1,3 +1,51 @@
+CREATE DATABASE canbatti
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Portuguese_Brazil.1252'
+    LC_CTYPE = 'Portuguese_Brazil.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+CREATE TABLE tb_endereco(
+    id_end SERIAL PRIMARY KEY,
+    estado VARCHAR(45) NOT NULL,
+    cidade VARCHAR(45) NOT NULL,
+    bairro VARCHAR(45) NOT NULL,
+    rua VARCHAR(45) NOT NULL,
+    num_residencia VARCHAR(10) NOT NULL,
+    complemento VARCHAR(10)
+);
+
+CREATE TABLE tb_pessoa(
+    id_pes SERIAL,
+    id_end INTEGER UNIQUE REFERENCES tb_endereco(id_end),
+    nome_pes VARCHAR(255) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
+    email VARCHAR(60) NOT NULL UNIQUE,
+    senha VARCHAR(44) NOT NULL,
+    telefone_1 VARCHAR(16) NOT NULL,
+    telefone_2 VARCHAR(16),
+    sexo VARCHAR(1) NOT NULL,
+    customer BOOL NOT NULL,
+    ativo BOOL NOT NULL,
+    CONSTRAINT tb_pessoa_id PRIMARY KEY(id_pes)
+);
+
+CREATE TABLE tb_auth(
+	id_pes INTEGER REFERENCES tb_pessoa(id_pes),
+	cookie_token VARCHAR(64) NOT NULL,
+	created_at TIMESTAMP,
+	CONSTRAINT tb_auth_pk PRIMARY KEY(id_pes)
+);
+
+
+
+<-- À vizualizar
+
+
+
+
 CREATE TABLE tb_funcao(
 id_func 			SERIAL,
 nome_func 			VARCHAR(12) NOT NULL,

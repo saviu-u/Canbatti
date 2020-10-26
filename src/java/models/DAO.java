@@ -5,7 +5,9 @@
  */
 package models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -33,11 +35,48 @@ public class DAO {
         emf.close();
     }
     
+    public void rollbackConnnection(){
+        em.getTransaction().rollback();
+        em.close();
+        emf.close();
+    }
+    
     public Map<String, String> getErrors(){
         return errors;
     }
     
+    public boolean valid(){
+        return valid(new ArrayList<Object>());
+    }
+    
+    public boolean valid(List<Object> entities){
+        boolean result = true;
+        this.errors = new HashMap();
+
+        entities.add(this);
+        
+        for(Object obj : entities){
+        this.openConnection();
+            try{
+                em.persist(obj);
+            }
+            catch (ConstraintViolationException e) {
+                e.getConstraintViolations().forEach((cv) -> {
+                    errors.put(cv.getPropertyPath().toString(), cv.getMessage());
+                });
+                result = false;
+            }
+            catch (Exception e){
+                System.out.println(e);
+                return false;
+            }
+        }
+        this.rollbackConnnection();
+        return result;
+    }
+    
     public boolean save(){
+        this.errors = new HashMap();
         this.openConnection();
         try{
             em.persist(this);

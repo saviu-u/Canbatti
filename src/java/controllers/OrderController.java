@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OrderController {
     @RequestMapping("/order")
     public String index(HttpServletRequest request, HttpServletResponse response){
-        if(!LoginController.Authentication(request, response)) return "redirect:login";
+        if(!LoginController.Authentication(request, response, true)) return "redirect:login";
         
         return "order";
     }

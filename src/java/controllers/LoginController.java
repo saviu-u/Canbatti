@@ -30,29 +30,46 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
     @RequestMapping(method={RequestMethod.GET})
     public String index(HttpServletRequest request, HttpServletResponse response){
-        if(LoginController.Authentication(request, response)) return "redirect:";
+        if(LoginController.Authentication(request, response, true)) return "redirect:";
 
         return "login";
     }
     
+    @RequestMapping(value="/new", method={RequestMethod.GET})
+    public String register(HttpServletRequest request, HttpServletResponse response){
+        if(LoginController.Authentication(request, response, true)) return "redirect:";
+
+        return "register";
+    }
+    
     @RequestMapping(method={RequestMethod.POST})
     public String indexPost(@RequestParam("email") String email,@RequestParam("pass") String pass, HttpServletRequest request, HttpServletResponse response){
-        if(LoginController.Authentication(request, response)) return "redirect:";
+        if(LoginController.Authentication(request, response, true)) return "redirect:";
         
+        // Finds person on database
         Pessoa user = Pessoa.Auth(email, pass);
         if(user.getIdPes() != null){
+            // Destroy all tokens
             Authentication.findByUser(user.getIdPes()).destroy();
             
+            // Creates a random 
             String token = Pessoa.convertPassword(pass + email + Long.toString(System.currentTimeMillis()));
 
+            // Creates a new authentication
             Authentication auth = new Authentication();
             auth.setIdPes(user.getIdPes());
             auth.setCreatedAt(new Date(System.currentTimeMillis()));
             auth.setCookieToken(token);
+            // Makes sure it saves
             if(auth.save()){
+                // Add cookie to browser
                 Cookie cookie = new Cookie("Authorization", token);
                 response.addCookie(cookie);
-                return "redirect:";
+
+                // Redirects user to right path
+                String path = "redirect:";
+                if(!user.getCustomer()) path += "admin";
+                return path;
             }
             else System.out.println(auth.getErrors());
         }
@@ -62,11 +79,11 @@ public class LoginController {
         return "login";
     }
     
-    public static boolean Authentication(HttpServletRequest request, HttpServletResponse response){
+    public static boolean Authentication(HttpServletRequest request, HttpServletResponse response, boolean customer){
         if(request.getCookies() != null){
             for(Cookie cookie : request.getCookies()){
                 if(cookie.getName().equals("Authorization")){
-                    return Authentication.findToken(cookie.getValue()).getIdPes() != null;
+                    return Authentication.findToken(cookie.getValue(), customer).getIdPes() != null;
                 }
             }
         }

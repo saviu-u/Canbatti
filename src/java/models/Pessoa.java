@@ -133,6 +133,7 @@ public class Pessoa extends DAO implements Serializable {
         catch (NoResultException e){
             result = new Pessoa();
         }
+        dao.closeConnnection();
         return result;
     }
 

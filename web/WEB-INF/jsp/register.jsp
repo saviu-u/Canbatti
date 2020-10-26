@@ -10,10 +10,10 @@
     <title>Checkout example for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../css/form-validation.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/resources/css/form-validation.css" rel="stylesheet">
   </head>
 
   <body class="bg-light">

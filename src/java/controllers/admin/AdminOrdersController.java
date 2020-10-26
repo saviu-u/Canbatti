@@ -5,6 +5,7 @@
  */
 package controllers.admin;
 
+import controllers.LoginController;
 import javax.servlet.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class AdminOrdersController {
     
     @RequestMapping
     public String index(HttpServletRequest request, HttpServletResponse response){
-        if(!AdminLoginController.Authentication(request, response)) return "redirect:login";
+        if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         
         return "admin/orders";
     }

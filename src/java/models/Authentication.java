@@ -6,6 +6,8 @@
 package models;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -23,7 +25,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import static models.DAO.em;
-import static models.Pessoa.convertPassword;
 
 /**
  *
@@ -35,10 +36,11 @@ import static models.Pessoa.convertPassword;
 @NamedQueries({
     @NamedQuery(name = "Authentication.findAll", query = "SELECT a FROM Authentication a")
     , @NamedQuery(name = "Authentication.findByIdPes", query = "SELECT a FROM Authentication a WHERE a.idPes = :idPes")
-    , @NamedQuery(name = "Authentication.findByCookieToken", query = "SELECT a FROM Authentication a WHERE a.cookieToken = :cookieToken and now() < a.created_at + interval '30 minutes'")
+    , @NamedQuery(name = "Authentication.findByCookieToken", query = "SELECT a FROM Authentication a INNER JOIN Pessoa p ON a.idPes = p.idPes WHERE :time < a.createdAt and a.cookieToken = :cookieToken and p.customer = :customer")
     , @NamedQuery(name = "Authentication.findByCreatedAt", query = "SELECT a FROM Authentication a WHERE a.createdAt = :createdAt")
 })
 public class Authentication extends DAO implements Serializable {
+    private static final int TIMEOUT = 1;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,20 +63,41 @@ public class Authentication extends DAO implements Serializable {
     public static Authentication findByUser(Integer id){
         return findGeneric("Authentication.findByIdPes", "idPes", id);
     }
-    public static Authentication findToken(String token){
-        return findGeneric("Authentication.findByCookieToken", "cookieToken", token);
+    
+    public static Authentication findToken(String token, boolean customer){
+        DAO dao = new DAO();
+        dao.openConnection();
+
+        Authentication result;
+        try{
+            Calendar timeNow = Calendar.getInstance();
+            timeNow.setTime(new Date(System.currentTimeMillis()));
+            timeNow.add(Calendar.HOUR, - TIMEOUT);
+            result = em.createNamedQuery("Authentication.findByCookieToken", Authentication.class)
+                    .setParameter("cookieToken", token)
+                    .setParameter("time", timeNow.getTime())
+                    .setParameter("customer", customer)
+                    .getSingleResult();
+        }
+        catch (NoResultException e){
+            result = new Authentication();
+        }
+        dao.closeConnnection();
+        return result;
     }
 
     private static Authentication findGeneric(String query, String parameter, Object id){
-        Authentication result;
         DAO dao = new DAO();
         dao.openConnection();
+
+        Authentication result;
         try{
             result = em.createNamedQuery(query, Authentication.class).setParameter(parameter, id).getSingleResult();
         }
         catch (NoResultException e){
             result = new Authentication();
         }
+        dao.closeConnnection();
         return result;
     }
 

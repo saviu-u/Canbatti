@@ -5,6 +5,7 @@
  */
 package controllers.admin;
 
+import controllers.LoginController;
 import javax.servlet.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,15 +21,9 @@ public class AdminHomeController {
     
     @RequestMapping
     public String index(HttpServletRequest request, HttpServletResponse response){
-        if(!AdminLoginController.Authentication(request, response)) return "redirect:login";
+        if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         
         return "admin/index";
-//        System.out.println("******");
-//        System.out.println(request.getCookies().length);
-//        Cookie cookie = new Cookie("teste", "");
-//        cookie.setMaxAge(0);
-//        response.addCookie(cookie);
-//        return "index";
     }
     
 }

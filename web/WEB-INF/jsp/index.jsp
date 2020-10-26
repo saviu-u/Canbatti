@@ -1,6 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<%-- 
+    Document   : index
+    Created on : 24/09/2020, 19:40:13
+    Author     : savio
+--%>
 
 <html lang="en">
   <head>

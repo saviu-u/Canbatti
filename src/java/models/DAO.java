@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
 import org.springframework.util.StringUtils;
@@ -26,6 +29,7 @@ public class DAO {
     protected static EntityManager em;
     Map<String, String> errors = new HashMap();
     
+    private final Integer LIMIT = 12;
     private final String UNIQUE_MESSAGE = "já existe";
     
     public void openConnection(){
@@ -49,7 +53,9 @@ public class DAO {
     public Map<String, String> getErrors(){
         return errors;
     }
-    
+
+
+
     public boolean valid(){
         return valid(new ArrayList<Object>());
     }
@@ -81,10 +87,9 @@ public class DAO {
                 try{
                     Map<java.lang.reflect.Method, String> paramDif = new HashMap<>();
                     TypedQuery tempQuery = em.createNamedQuery(obj.getClass().getSimpleName() + ".findUniqueness", obj.getClass());
-                    java.lang.reflect.Method queryParamMethod = tempQuery.getClass().getMethod("setParameter", String.class, Object.class);
                     for(String param : getUniqueParams()){
                         java.lang.reflect.Method objectAttrMethod = obj.getClass().getMethod("get" + StringUtils.capitalize(param));
-                        tempQuery = (TypedQuery) queryParamMethod.invoke(tempQuery, param, objectAttrMethod.invoke(obj));
+                        tempQuery = tempQuery.setParameter(param, objectAttrMethod.invoke(obj));
                         paramDif.put(objectAttrMethod, param);
                     }
                     
@@ -118,7 +123,7 @@ public class DAO {
         }
         return false;
     }
-    
+
     public boolean destroy(){
         this.openConnection();
         try{
@@ -137,6 +142,65 @@ public class DAO {
         }
         this.closeConnnection();
         return true;
+    }
+    
+    public Integer getResourcesCount(Object... args){
+        Integer result;
+
+        this.openConnection();
+        Query tempQuery = em.createNamedQuery(this.getClass().getSimpleName() + ".findAllPagedCount");
+        for(Object arg : args) tempQuery = tempQuery.setParameter(1, arg);
+        result = ((Long) tempQuery.getSingleResult()).intValue();
+        this.closeConnnection();
+
+        return result;
+    }
+    
+    public List<Map<String, String>> getResources(Integer page, Object... args){
+        if(getColumns() == null){
+            System.out.println("Define the columns first");
+            return null;
+        }
+        
+        this.openConnection();
+        TypedQuery tempQuery = em.createNamedQuery(this.getClass().getSimpleName() + ".findAllPaged", this.getClass());
+        for(Object arg : args) tempQuery = tempQuery.setParameter(1, arg);
+        
+        Integer offset = (page - 1) * LIMIT;
+        tempQuery.setFirstResult(page);
+        tempQuery.setMaxResults(LIMIT);
+        
+        Map<java.lang.reflect.Method, String> paramDif = new HashMap<>();
+        for(String param : getColumns()){
+            try {
+                java.lang.reflect.Method method = this.getClass().getMethod("get" + StringUtils.capitalize(param));
+                paramDif.put(method, param);
+            } catch (NoSuchMethodException | SecurityException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        List<Map<String, String>> result = new ArrayList();
+        for(Object object : tempQuery.getResultList()){
+            Map<String, String> objectHash = new HashMap();
+            for(java.lang.reflect.Method method : paramDif.keySet()){
+                try {
+                    objectHash.put(paramDif.get(method), (String) method.invoke(object));
+                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                    Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            result.add(objectHash);
+        }
+
+        this.closeConnnection();
+        return result;
+    }
+
+
+    
+    protected String[] getColumns(){
+        return null;
     }
     
     protected String[] getUniqueParams(){

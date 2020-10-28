@@ -44,6 +44,9 @@ import org.springframework.util.StringUtils;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pessoa.findAll", query = "SELECT p FROM Pessoa p where p.ativo = true")
+    , @NamedQuery(name = "Pessoa.findAllPaged", query = "SELECT p FROM Pessoa p where p.ativo = true and p.customer = ?1")
+    , @NamedQuery(name = "Pessoa.findAllPagedCount", query = "SELECT COUNT(1) FROM Pessoa p where p.ativo = true and p.customer = ?1")
+        
     , @NamedQuery(name = "Pessoa.findByIdPes", query = "SELECT p FROM Pessoa p WHERE p.idPes = :idPes")
     , @NamedQuery(name = "Pessoa.findByNomePes", query = "SELECT p FROM Pessoa p WHERE p.nomePes = :nomePes")
     , @NamedQuery(name = "Pessoa.findByCpf", query = "SELECT p FROM Pessoa p WHERE p.cpf = :cpf")
@@ -53,6 +56,7 @@ import org.springframework.util.StringUtils;
     , @NamedQuery(name = "Pessoa.findBySexo", query = "SELECT p FROM Pessoa p WHERE p.sexo = :sexo")
     , @NamedQuery(name = "Pessoa.findByCustomer", query = "SELECT p FROM Pessoa p WHERE p.customer = :customer")
     , @NamedQuery(name = "Pessoa.findByAtivo", query = "SELECT p FROM Pessoa p WHERE p.ativo = :ativo")
+
     , @NamedQuery(name = "Pessoa.findByAuth", query = "SELECT p FROM Pessoa p WHERE p.email = :email and p.senha = :senha and p.ativo = true")
     , @NamedQuery(name = "Pessoa.findUniqueness", query = "SELECT p FROM Pessoa p WHERE p.email = :email or p.cpf = :cpf")
 })
@@ -124,10 +128,13 @@ public class Pessoa extends DAO implements Serializable {
         this.idPes = idPes;
     }
     
+    protected String[] getColumns(){
+        return new String[] {"nomePes", "email", "cpf"};
+    }
+    
     @Override
     protected String[] getUniqueParams(){
-        String[] params = {"email", "cpf"};
-        return params;
+        return new String[] {"email", "cpf"};
     }
     
     @Override

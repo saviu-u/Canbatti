@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-public class HomeController {
+public class HomeController extends ControllerBase {
 
     @RequestMapping("/")
     public String index(HttpServletRequest request, HttpServletResponse response){

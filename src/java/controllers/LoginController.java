@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @RequestMapping("/login")
-public class LoginController {
+public class LoginController extends ControllerBase {
     private static final String[] USER_PARAMS = {"nomePes", "cpf", "email", "telefone1", "telefone2", "senha"};
     private static final String[] END_PARAMS = {"bairro", "numResidencia", "cidade", "estado", "complemento", "rua"};  
     
@@ -73,40 +73,16 @@ public class LoginController {
         Pessoa user = new Pessoa();
         Endereco end = new Endereco();
 
-        for (String param : USER_PARAMS){
-            try {
-                java.lang.reflect.Method method = user.getClass().getMethod("set" + StringUtils.capitalize(param), String.class);
-                String result = request.getParameter(param);
-                if(!StringUtils.hasText(result)) result = null;
-                method.invoke(user, result);
-            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        // user.setSenha("senha@123");
-        // user.setSexo("M");
-        
-        for (String param : END_PARAMS){
-            try {
-                java.lang.reflect.Method method = end.getClass().getMethod("set" + StringUtils.capitalize(param), String.class);
-                String result = request.getParameter(param);
-                if(!StringUtils.hasText(result)) result = null;
-                method.invoke(end, result);
-            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        paramsToObject(user, USER_PARAMS, request);
+        paramsToObject(end, END_PARAMS, request);
 
         user.setAtivo(true);
         user.setCustomer(true);
         user.setIdEnd(end);
         
-        if(user.valid()){
-            if(user.save()){
-                request.setAttribute("email", user.getEmail());
-                return "login";
-            }
+        if(user.save()){
+            request.setAttribute("email", user.getEmail());
+            return "login";
         }
         else{
             System.out.println(user.getErrors());

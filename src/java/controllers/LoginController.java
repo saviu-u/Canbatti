@@ -60,6 +60,7 @@ public class LoginController {
         }
         else{
             // Invalid
+            request.setAttribute("oldParams", request.getParameterMap());
             request.setAttribute("Erro", true);
         }
         return "login";
@@ -83,8 +84,8 @@ public class LoginController {
             }
         }
         
-        user.setSenha("senha@123");
-        user.setSexo("M");
+        // user.setSenha("senha@123");
+        // user.setSexo("M");
         
         for (String param : END_PARAMS){
             try {
@@ -103,8 +104,8 @@ public class LoginController {
         
         if(user.valid()){
             if(user.save()){
-                String redirect = resetTokens(user, response);
-                if(redirect != null) return redirect;
+                request.setAttribute("email", user.getEmail());
+                return "login";
             }
         }
         else{

@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Endereco.findByRua", query = "SELECT e FROM Endereco e WHERE e.rua = :rua")
     , @NamedQuery(name = "Endereco.findByNumResidencia", query = "SELECT e FROM Endereco e WHERE e.numResidencia = :numResidencia")
     , @NamedQuery(name = "Endereco.findByComplemento", query = "SELECT e FROM Endereco e WHERE e.complemento = :complemento")})
-public class Endereco implements Serializable {
+public class Endereco extends DAO implements Serializable {
 
     @Basic(optional = false)
     @NotNull

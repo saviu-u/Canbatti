@@ -33,6 +33,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import static models.DAO.em;
+import org.springframework.util.StringUtils;
 
 /**
  *
@@ -42,7 +43,7 @@ import static models.DAO.em;
 @Table(name = "tb_pessoa")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Pessoa.findAll", query = "SELECT p FROM Pessoa p")
+    @NamedQuery(name = "Pessoa.findAll", query = "SELECT p FROM Pessoa p where p.ativo = true")
     , @NamedQuery(name = "Pessoa.findByIdPes", query = "SELECT p FROM Pessoa p WHERE p.idPes = :idPes")
     , @NamedQuery(name = "Pessoa.findByNomePes", query = "SELECT p FROM Pessoa p WHERE p.nomePes = :nomePes")
     , @NamedQuery(name = "Pessoa.findByCpf", query = "SELECT p FROM Pessoa p WHERE p.cpf = :cpf")
@@ -52,7 +53,8 @@ import static models.DAO.em;
     , @NamedQuery(name = "Pessoa.findBySexo", query = "SELECT p FROM Pessoa p WHERE p.sexo = :sexo")
     , @NamedQuery(name = "Pessoa.findByCustomer", query = "SELECT p FROM Pessoa p WHERE p.customer = :customer")
     , @NamedQuery(name = "Pessoa.findByAtivo", query = "SELECT p FROM Pessoa p WHERE p.ativo = :ativo")
-    , @NamedQuery(name = "Pessoa.findByAuth", query = "SELECT p FROM Pessoa p WHERE p.email = :email and p.senha = :senha")
+    , @NamedQuery(name = "Pessoa.findByAuth", query = "SELECT p FROM Pessoa p WHERE p.email = :email and p.senha = :senha and p.ativo = true")
+    , @NamedQuery(name = "Pessoa.findUniqueness", query = "SELECT p FROM Pessoa p WHERE p.email = :email or p.cpf = :cpf")
 })
 public class Pessoa extends DAO implements Serializable {
 
@@ -120,6 +122,12 @@ public class Pessoa extends DAO implements Serializable {
 
     public Pessoa(Integer idPes) {
         this.idPes = idPes;
+    }
+    
+    @Override
+    protected String[] getUniqueParams(){
+        String[] params = {"email", "cpf"};
+        return params;
     }
     
     @Override

@@ -7,6 +7,7 @@ package controllers.admin;
 
 import controllers.ControllerBase;
 import controllers.LoginController;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Endereco;
@@ -29,7 +30,7 @@ public class AdminUserController extends ControllerBase {
     public String index(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         
-        request.setAttribute("resources", new Pessoa().getResources(page(request), true));
+        request.setAttribute("resources", new Pessoa().getResources(page(request)));
         request.setAttribute("pageCount", new Pessoa().getResourcesCount(true));
         System.out.println(new Pessoa().getResources(page(request), true));
         System.out.println(new Pessoa().getResourcesCount(true));
@@ -47,7 +48,9 @@ public class AdminUserController extends ControllerBase {
     @RequestMapping(value="/new", method={RequestMethod.POST})
     public String newPostAction(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
-        if(formActions(request)) return "redirect:";
+        Pessoa pessoa = new Pessoa();
+        pessoa.setCustomer(false);
+        if(formActions(pessoa, new Endereco(), request)) return "redirect:";
         
         return "admin/user/form";
     }
@@ -55,6 +58,11 @@ public class AdminUserController extends ControllerBase {
     @RequestMapping(value="/#{id}", method={RequestMethod.GET})
     public String editGetAction(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
+        Pessoa user = Pessoa.find(Integer.parseInt(request.getParameter("id")));
+        Map<String, Object> oldParams = user.getAttributes();
+        oldParams.remove("senha");
+        
+        request.setAttribute("oldParams", oldParams);
         
         return "admin/user/form";
     }
@@ -62,6 +70,9 @@ public class AdminUserController extends ControllerBase {
     @RequestMapping(value="/#{id}", method={RequestMethod.PUT})
     public String editPutAction(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
+        Pessoa pessoa = new Pessoa();
+        pessoa.setCustomer(false);
+        if(formActions(pessoa, new Endereco(), request)) return "redirect:";
         
         return "admin/user/form";
     }
@@ -73,9 +84,7 @@ public class AdminUserController extends ControllerBase {
         return "admin/user/form";
     }
     
-    private boolean formActions(HttpServletRequest request){
-        Pessoa pessoa = new Pessoa();
-        Endereco end = new Endereco();
+    private boolean formActions(Pessoa pessoa, Endereco end, HttpServletRequest request){
         paramsToObject(pessoa, USER_PARAMS, request);
         paramsToObject(end, END_PARAMS, request);
         

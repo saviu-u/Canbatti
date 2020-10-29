@@ -7,12 +7,16 @@ package models;
 
 import controllers.LoginController;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
@@ -44,10 +48,10 @@ import org.springframework.util.StringUtils;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pessoa.findAll", query = "SELECT p FROM Pessoa p where p.ativo = true")
-    , @NamedQuery(name = "Pessoa.findAllPaged", query = "SELECT p FROM Pessoa p where p.ativo = true and p.customer = ?1")
-    , @NamedQuery(name = "Pessoa.findAllPagedCount", query = "SELECT COUNT(1) FROM Pessoa p where p.ativo = true and p.customer = ?1")
+    , @NamedQuery(name = "Pessoa.findAllPaged", query = "SELECT p FROM Pessoa p where p.ativo = true")
+    , @NamedQuery(name = "Pessoa.findAllPagedCount", query = "SELECT COUNT(1) FROM Pessoa p where p.ativo = true")
         
-    , @NamedQuery(name = "Pessoa.findByIdPes", query = "SELECT p FROM Pessoa p WHERE p.idPes = :idPes")
+    , @NamedQuery(name = "Pessoa.findByIdPes", query = "SELECT p FROM Pessoa p WHERE p.idPes = ?1")
     , @NamedQuery(name = "Pessoa.findByNomePes", query = "SELECT p FROM Pessoa p WHERE p.nomePes = :nomePes")
     , @NamedQuery(name = "Pessoa.findByCpf", query = "SELECT p FROM Pessoa p WHERE p.cpf = :cpf")
     , @NamedQuery(name = "Pessoa.findByEmail", query = "SELECT p FROM Pessoa p WHERE p.email = :email")
@@ -58,9 +62,28 @@ import org.springframework.util.StringUtils;
     , @NamedQuery(name = "Pessoa.findByAtivo", query = "SELECT p FROM Pessoa p WHERE p.ativo = :ativo")
 
     , @NamedQuery(name = "Pessoa.findByAuth", query = "SELECT p FROM Pessoa p WHERE p.email = :email and p.senha = :senha and p.ativo = true")
-    , @NamedQuery(name = "Pessoa.findUniqueness", query = "SELECT p FROM Pessoa p WHERE p.email = :email or p.cpf = :cpf")
+    , @NamedQuery(name = "Pessoa.findUniqueness", query = "SELECT p FROM Pessoa p WHERE p.email = :email or p.cpf = :cpf") // Required for uniqueness
 })
 public class Pessoa extends DAO implements Serializable {
+    
+    // Resources columns
+    protected String[] getColumns(){
+        return new String[] {"nomePes", "email", "cpf", "customer"};
+    }
+    
+    // Values with uniqueness validation
+    @Override
+    protected String[] getUniqueParams(){
+        return new String[] {"email", "cpf"};
+    }
+    
+    // Listing possible models
+    @Override
+    public boolean valid(){
+        List<Object> classes = new ArrayList<>();
+        if(idEnd != null) classes.add(idEnd);
+        return valid(classes);
+    }
 
     @Basic(optional = false)
     @NotNull
@@ -127,22 +150,6 @@ public class Pessoa extends DAO implements Serializable {
     public Pessoa(Integer idPes) {
         this.idPes = idPes;
     }
-    
-    protected String[] getColumns(){
-        return new String[] {"nomePes", "email", "cpf"};
-    }
-    
-    @Override
-    protected String[] getUniqueParams(){
-        return new String[] {"email", "cpf"};
-    }
-    
-    @Override
-    public boolean valid(){
-        List<Object> classes = new ArrayList<>();
-        if(idEnd != null) classes.add(idEnd);
-        return valid(classes);
-    }
 
     public Pessoa(Integer idPes, String nomePes, String cpf, String email, String telefone1, String sexo, boolean customer, boolean ativo) {
         this.idPes = idPes;
@@ -154,19 +161,18 @@ public class Pessoa extends DAO implements Serializable {
         this.customer = customer;
         this.ativo = ativo;
     }
+    
+    public static Pessoa find(Integer idPes){
+        return (Pessoa) new Pessoa().genericQuery("Pessoa.findByIdPes", idPes);
+    }
 
     public static Pessoa Auth(String email, String pass){
-        Pessoa result;
-        DAO dao = new DAO();
-        dao.openConnection();
-        try{
-            result = em.createNamedQuery("Pessoa.findByAuth", Pessoa.class).setParameter("email", email).setParameter("senha", convertPassword(pass)).getSingleResult();
-        }
-        catch (NoResultException e){
-            result = new Pessoa();
-        }
-        dao.closeConnnection();
-        return result;
+        Map<Object, Object> params = new HashMap(){{
+            put("email", email);
+            put("senha", convertPassword(pass));
+        }};
+        
+        return (Pessoa) new Pessoa().genericQuery("Pessoa.findByAuth", params);
     }
 
     public Integer getIdPes() {

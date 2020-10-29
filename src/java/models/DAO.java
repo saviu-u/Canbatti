@@ -5,8 +5,12 @@
  */
 package models;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -144,6 +149,38 @@ public class DAO {
         return true;
     }
     
+    public Object genericQuery(String queryName, Object... params){
+        Map<Object, Object> convertedParams = new HashMap();
+        
+        for(int i = 1 ; i <= params.length; i++) {convertedParams.put(i, params[i-1]);}
+        return genericQuery(queryName, convertedParams, false);
+    }
+    
+    public Object genericQuery(String queryName, Map<Object, Object> params){
+        return genericQuery(queryName, params, true);
+    }
+    
+    private Object genericQuery(String queryName, Map<Object, Object> params, boolean string){
+        Object result;
+        DAO dao = new DAO();
+
+        dao.openConnection();
+        try{
+            TypedQuery query = em.createNamedQuery(queryName, this.getClass());
+            params.keySet().forEach((param) -> {
+                if(string) query.setParameter((String) param, params.get(param));
+                else query.setParameter((Integer) param, params.get(param));
+            });
+            result = query.getSingleResult();
+        }
+        catch (NoResultException e){
+            result = this;
+        }
+        dao.closeConnnection();
+
+        return result;
+    }
+    
     public Integer getResourcesCount(Object... args){
         Integer result;
 
@@ -156,7 +193,7 @@ public class DAO {
         return result;
     }
     
-    public List<Map<String, String>> getResources(Integer page, Object... args){
+    public List<Map<String, Object>> getResources(Integer page, Object... args){
         if(getColumns() == null){
             System.out.println("Define the columns first");
             return null;
@@ -170,6 +207,7 @@ public class DAO {
         tempQuery.setFirstResult(page);
         tempQuery.setMaxResults(LIMIT);
         
+        // Getting the get methods
         Map<java.lang.reflect.Method, String> paramDif = new HashMap<>();
         for(String param : getColumns()){
             try {
@@ -180,12 +218,13 @@ public class DAO {
             }
         }
         
-        List<Map<String, String>> result = new ArrayList();
+        // Creating the hash
+        List<Map<String, Object>> result = new ArrayList();
         for(Object object : tempQuery.getResultList()){
-            Map<String, String> objectHash = new HashMap();
+            Map<String, Object> objectHash = new HashMap();
             for(java.lang.reflect.Method method : paramDif.keySet()){
                 try {
-                    objectHash.put(paramDif.get(method), (String) method.invoke(object));
+                    objectHash.put(paramDif.get(method), method.invoke(object));
                 } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                     Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -196,8 +235,44 @@ public class DAO {
         this.closeConnnection();
         return result;
     }
+    
+    public Map<String, Object> getAttributes(){
+        return getAttributes(new ArrayList());
+    }
 
+    public Map<String, Object> getAttributes(List<Class> usedClasses){
+        if(Arrays.stream(usedClasses.toArray()).anyMatch(value -> value.equals(this.getClass()))) return new HashMap();
+        usedClasses.add(this.getClass());
+        
+        Map<String, Object> result = new HashMap();
+        String[] blackList = {"authentication", "serialVersionUID"};
+        
+        for(Field field : getClass().getDeclaredFields()){
+            String param = field.getName();
+            Class<?> paramType = field.getType();
 
+            if(Arrays.stream(blackList).anyMatch(value -> value.equals(param))) continue;
+
+            java.lang.reflect.Method objectAttrMethod;
+            try {
+                objectAttrMethod = this.getClass().getMethod("get" + StringUtils.capitalize(param));
+                Object value = objectAttrMethod.invoke(this);
+                if(paramType.equals(Collection.class)) continue;
+                if(DAO.class.isAssignableFrom(paramType)){
+                    DAO child = (DAO) value;
+                    if(child == null) child = (DAO) paramType.newInstance();
+                    result.putAll((((DAO) child).getAttributes(usedClasses)));
+                    continue;
+                }
+                result.put(param, value);
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    
+    
     
     protected String[] getColumns(){
         return null;

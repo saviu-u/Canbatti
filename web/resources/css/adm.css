@@ -7,6 +7,26 @@ body {
   height: 16px;
   vertical-align: text-bottom;
 }
+.sair {
+  margin-left: 86%;
+}
+.navbar-brand{
+    background-color: #D50000;
+    border-color: #D50000;
+}
+.navbar {
+    background-color: #D50000;
+    border-color: #D50000;
+    height: 8%;
+}
+.navbar-dark {
+    background-color: #D50000;
+    border-color: #D50000;
+}
+.fixed-top{
+    background-color: #D50000;
+    border-color: #D50000;
+}
 
 /*
  * Sidebar

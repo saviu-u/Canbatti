@@ -98,7 +98,7 @@ public class Pessoa extends DAO implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 14)
-    @Pattern(regexp="([1-9]{3}\\.){2}[1-9]{3}\\-[1-9]{2}", message="invalido")
+    @Pattern(regexp="([0-9]{3}\\.){2}[0-9]{3}\\-[0-9]{2}", message="invalido")
     @Column(name = "cpf")
     private String cpf;
     @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="inválido")//if the field contains email address consider using this annotation to enforce field validation

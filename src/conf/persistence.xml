@@ -2,7 +2,7 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="CanbattiPU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>java:app/jdniCanbatti</jta-data-source>
+    <jta-data-source>java:app/canbatti</jta-data-source>
     <class>models.Authentication</class>
     <class>models.Endereco</class>
     <class>models.Pessoa</class>

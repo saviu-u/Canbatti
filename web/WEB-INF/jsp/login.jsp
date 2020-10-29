@@ -29,7 +29,7 @@
         <input type="password" id="inputPassword" name="pass" class="form-control" placeholder="Senha" required>
         <div class="checkbox mb-3">
         </div>
-        <button class="btn btn-lg btn-block" type="submit" value="login.jsp" onclick=" form.action='login';">Entrar</button>
+        <button class="btn btn-lg btn-block" type="submit" value="login" onclick=" form.action='login';">Entrar</button>
       </form>
       <form class="form-signin">
         <button class="btn btn-block btn-cinza" type="submit" value="cadastro.jsp" onclick="form.action='login/new';">Cadastro</button>

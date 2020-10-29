@@ -13,12 +13,12 @@
     <link href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="<%= request.getContextPath() %>/resources/css/form-validation.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/resources/css/cadastro.css" rel="stylesheet">
   </head>
 
   <body class="bg-light">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand text-center" href="#">Canbatti</a>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+        <a class="navbar-brand"> <img class="logo" src="<%= request.getContextPath() %>/resources/imagens/logo.png" width="100" height="40"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -47,10 +47,29 @@
               </div>
             </div>
             <div class="mb-3">
+              <label for="sexo">Sexo</label>
+              <select class="form-control" id="sexo" placeholder="" name="sexo" required>
+                <option value="" selected>Selecione...</option>
+                <option value="F">F</option> 
+                <option value="M" >M</option>
+                <option value="O">O</option>
+              </select>
+              <div class="invalid-feedback">
+                Selecione o sexo.
+              </div>
+            </div>
+            <div class="mb-3">
               <label for="email">Email</label>
               <input type="text" class="form-control" id="email" placeholder="" name="email">
               <div class="invalid-feedback">
                 Insira o email.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="senha">Senha</label>
+              <input type="password" class="form-control" id="senha" placeholder="" name="senha">
+              <div class="invalid-feedback">
+                Insira uma senha.
               </div>
             </div>
             <div class="mb-3">
@@ -109,7 +128,7 @@
         </div>
       </div>
 
-      <footer class="my-5 pt-5 text-muted text-center text-small">
+      <footer class="my-5 pt-5 text-muted text-small">
         <p class="mb-1">Canbatti &copy; 2020</p>
       </footer>
     </div>

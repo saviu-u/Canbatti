@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/login")
 public class LoginController extends ControllerBase {
-    private static final String[] USER_PARAMS = {"nomePes", "cpf", "email", "telefone1", "telefone2", "senha"};
+    private static final String[] USER_PARAMS = {"nomePes", "cpf", "sexo", "email", "telefone1", "telefone2", "senha"};
     private static final String[] END_PARAMS = {"bairro", "numResidencia", "cidade", "estado", "complemento", "rua"};  
     
     @RequestMapping(method={RequestMethod.GET})

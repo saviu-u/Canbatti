@@ -22,6 +22,11 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+       <ul class="navbar-nav sair">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sign out</a>
+        </li>
+       </ul>
       <div class="collapse navbar-collapse" id="navbarCollapse">
       </div>
     </nav>
@@ -32,95 +37,37 @@
           <form class="needs-validation" method="POST" novalidate>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="firstName">Nome Completo</label>
-                <input type="text" class="form-control" id="nome" placeholder="" name="nomePes" value="">
+                <label for="firstName">Nome Produto</label>
+                <input type="text" class="form-control" id="nome" placeholder="" name="nome" value="">
                 <div class="invalid-feedback">
                   Insira um nome válido.
                 </div>
               </div>
             </div>
             <div class="mb-3">
-              <label for="cpf">CPF</label>
-              <input type="text" class="form-control" name="cpf" id="cpf">
-              <div class="invalid-feedback">
-                Insira o CPF.
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="sexo">Sexo</label>
-              <select class="form-control" id="sexo" placeholder="" name="sexo" required>
+              <label for="sexo">Categoria</label>
+              <select class="form-control" id="categoria" placeholder="" name="categoria" required>
                 <option value="" selected>Selecione...</option>
-                <option value="F">F</option> 
-                <option value="M" >M</option>
-                <option value="O">O</option>
+                <option value="P">Pão</option> 
+                <option value="C" >Carne</option>
+                <option value="A">Acompanhamento</option>
+                <option value="M">Molho</option>
+                <option value="B">Bebida</option>
               </select>
               <div class="invalid-feedback">
-                Selecione o sexo.
+                Selecione a categoria.
               </div>
             </div>
             <div class="mb-3">
-              <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" placeholder="" name="email">
+              <label for="email">Quantidade</label>
+              <input type="text" class="form-control" id="quantidade" placeholder="" name="quantidade">
               <div class="invalid-feedback">
-                Insira o email.
+                Insira o quantidade.
               </div>
             </div>
             <div class="mb-3">
-              <label for="senha">Senha</label>
-              <input type="password" class="form-control" id="senha" placeholder="" name="senha">
-              <div class="invalid-feedback">
-                Insira uma senha.
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="telefone1">Telefone 1</label>
-              <input type="text" class="form-control" id="telefone1" placeholder="" name="telefone1">
-              <div class="invalid-feedback">
-                Insira o telefone.
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="telefone2">Telefone 2<span class="text-muted">(Opcional)</span></label>
-              <input type="text" class="form-control" id="telefone2" placeholder="" name="telefone2">
-            </div>
-            <div class="mb-3">
-              <label for="estado">Estado</label>
-              <input type="text" class="form-control" id="estado" placeholder="" name="estado">
-              <div class="invalid-feedback">
-                Insira o estado(UF).
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="cidade">Cidade</label>
-              <input type="text" class="form-control" id="cidade" placeholder="" name="cidade">
-              <div class="invalid-feedback">
-                Insira a cidade.
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="bairro">Bairro</label>
-              <input type="text" class="form-control" id="bairro" placeholder="" name="bairro">
-              <div class="invalid-feedback">
-                Insira o bairro.
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="rua">Rua</label>
-              <input type="text" class="form-control" id="address" placeholder="" name="rua">
-              <div class="invalid-feedback">
-                Insira a rua.
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="num_residencia">Número Residência</label>
-              <input type="text" class="form-control" id="num_residencia" placeholder="" name="numResidencia">
-              <div class="invalid-feedback">
-                Insira o número da residência.
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="complemento">Complemento<span class="text-muted">(Opcional)</span></label>
-              <input type="text" class="form-control" id="complemento" placeholder="" name="complemento">
+              <label for="cidade">Descrição</label>
+              <input type="text" class="form-control" id="descricao" placeholder="" name="descricao">
             </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>

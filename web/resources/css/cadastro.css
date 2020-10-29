@@ -6,6 +6,10 @@
   margin-left: 28%;
 }
 
+.sair {
+  margin-left: 86%;
+}
+
 .border-top { border-top: 1px solid #D50000; }
 .border-bottom { border-bottom: 1px solid  #D50000; }
 .border-top-gray { border-top-color:  #D50000; }

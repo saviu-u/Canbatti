@@ -91,8 +91,10 @@ public class AdminUserController extends ControllerBase {
         
         if(pessoa.update())
             return true;
-        else
+        else{
+            System.out.println(pessoa.getErrors());
             request.setAttribute("errors", pessoa.getErrors());
+        }
         return false;
     }
 }

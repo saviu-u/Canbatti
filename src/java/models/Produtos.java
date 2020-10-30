@@ -63,6 +63,7 @@ public class Produtos extends DAO implements Serializable {
     @Column(name = "desc_prod")
     private String descProd;
     // @Max(value=?) 
+    @NotNull
     @Min(value=0)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "preco_prod")
     private BigDecimal precoProd;

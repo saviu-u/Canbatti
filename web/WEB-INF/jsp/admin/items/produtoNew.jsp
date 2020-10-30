@@ -61,7 +61,7 @@
             </div>
             <div class="mb-3">
               <label for="email">Valor</label>
-              <input type="text" class="form-control" id="precoProd" placeholder="" name="valor" value="<%= Objects.toString(request.getAttribute("precoProd"), "") %>">
+              <input type="text" class="form-control" id="precoProd" placeholder="" name="precoProd" value="<%= Objects.toString(request.getAttribute("precoProd"), "") %>">
               <div class="invalid-feedback">
                 Insira o valor.
               </div>
@@ -75,7 +75,7 @@
             </div>
             <div class="mb-3">
               <label for="cidade">Descrição</label>
-              <input type="text" class="form-control" id="descProd" placeholder="" name="descricao" value="<%= Objects.toString(request.getAttribute("descProd"), "") %>">
+              <input type="text" class="form-control" id="descProd" placeholder="" name="descProc" value="<%= Objects.toString(request.getAttribute("descProd"), "") %>">
             </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>

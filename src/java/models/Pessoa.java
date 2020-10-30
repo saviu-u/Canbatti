@@ -30,12 +30,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.NoResultException;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import static models.DAO.em;
 import org.springframework.util.StringUtils;
 
@@ -65,6 +67,9 @@ import org.springframework.util.StringUtils;
     , @NamedQuery(name = "Pessoa.findUniqueness", query = "SELECT p FROM Pessoa p WHERE (p.email = :email or p.cpf = :cpf)") // Required for uniqueness
 })
 public class Pessoa extends DAO implements Serializable {
+
+    @OneToMany(mappedBy = "idPes")
+    private List<Pedidos> pedidosList;
     
     @Override
     protected Integer getPKvalue(){
@@ -310,5 +315,14 @@ public class Pessoa extends DAO implements Serializable {
 
     public void setAuthentication(Authentication authentication) {
         this.authentication = authentication;
+    }
+
+    @XmlTransient
+    public List<Pedidos> getPedidosList() {
+        return pedidosList;
+    }
+
+    public void setPedidosList(List<Pedidos> pedidosList) {
+        this.pedidosList = pedidosList;
     }
 }

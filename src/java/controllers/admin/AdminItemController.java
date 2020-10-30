@@ -64,7 +64,7 @@ public class AdminItemController extends ControllerBase {
         return "admin/items/produtoNew";
     }
     
-    @RequestMapping(value="/{id}", method={RequestMethod.PUT})
+    @RequestMapping(value="/{id}", method={RequestMethod.POST})
     public String editPutAction(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         Produtos produto = Produtos.find(id);

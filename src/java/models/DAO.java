@@ -194,6 +194,23 @@ public class DAO {
         return result;
     }
     
+    public List<Object> genericListQuery(String queryName){
+        List<Object> result;
+        DAO dao = new DAO();
+
+        dao.openConnection();
+        try{
+            Query query = em.createNamedQuery(queryName);
+            result = query.getResultList();
+        }
+        catch (NoResultException e){
+            result = new ArrayList();
+        }
+        dao.closeConnnection();
+
+        return result;
+    }
+    
     public Integer getResourcesCount(Object... args){
         Integer result;
 

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,7 +67,7 @@ public class Pedidos extends DAO implements Serializable {
     @ManyToOne
     private Pessoa idPes;
     @OneToMany(mappedBy = "idPedido")
-    private Collection<ItemPedido> itemPedidoCollection;
+    private List<ItemPedido> itemPedidoCollection;
 
     public Pedidos() {
     }
@@ -122,11 +123,11 @@ public class Pedidos extends DAO implements Serializable {
     }
 
     @XmlTransient
-    public Collection<ItemPedido> getItemPedidoCollection() {
+    public List<ItemPedido> getItemPedidoCollection() {
         return itemPedidoCollection;
     }
 
-    public void setItemPedidoCollection(Collection<ItemPedido> itemPedidoCollection) {
+    public void setItemPedidoCollection(List<ItemPedido> itemPedidoCollection) {
         this.itemPedidoCollection = itemPedidoCollection;
     }
 

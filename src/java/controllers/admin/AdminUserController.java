@@ -36,7 +36,7 @@ public class AdminUserController extends ControllerBase {
         System.out.println(new Pessoa().getResources(page(request)));
         System.out.println(new Pessoa().getResourcesCount());
         
-        return "admin/user/index";
+        return "admin/index";
     }
     
     @RequestMapping(value="/new", method={RequestMethod.GET})

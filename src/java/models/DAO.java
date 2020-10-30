@@ -118,6 +118,19 @@ public class DAO {
         return result;
     }
     
+    public boolean update(){
+        
+        this.errors = new HashMap();
+        if(valid()){
+            this.openConnection();
+            em.merge(this);
+            for(Object entity : getDaoClasses()) em.merge(entity);
+            this.closeConnnection();
+            return true;
+        }
+        return false;
+    }
+    
     public boolean save(){
         this.errors = new HashMap();
         if(valid()){
@@ -272,7 +285,23 @@ public class DAO {
         return result;
     }
     
-    
+    protected List<Object> getDaoClasses(){
+        List<Object> classes = new ArrayList();
+        for(Field field : getClass().getDeclaredFields()){
+            try{
+            String param = field.getName();
+            java.lang.reflect.Method objectAttrMethod = this.getClass().getMethod("get" + StringUtils.capitalize(param));
+            Class<?> paramType = field.getType();
+                if(DAO.class.isAssignableFrom(paramType)){
+                    Object value = objectAttrMethod.invoke(this);
+                    if(value != null)
+                        classes.add(value);
+                }
+            } catch (SecurityException | IllegalArgumentException | NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
+            }
+        }
+        return classes;
+    }
     
     protected String[] getColumns(){
         return null;

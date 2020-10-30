@@ -72,7 +72,7 @@ public class AdminUserController extends ControllerBase {
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         Pessoa pessoa = Pessoa.find(id);
         pessoa.setCustomer(false);
-        if(formActions(pessoa, new Endereco(), request)) return "redirect:";
+        if(formActions(pessoa, pessoa.getIdEnd(), request)) return "redirect:";
         
         return "register";
     }
@@ -87,8 +87,9 @@ public class AdminUserController extends ControllerBase {
     private boolean formActions(Pessoa pessoa, Endereco end, HttpServletRequest request){
         paramsToObject(pessoa, USER_PARAMS, request);
         paramsToObject(end, END_PARAMS, request);
+        pessoa.setIdEnd(end);
         
-        if(pessoa.save())
+        if(pessoa.update())
             return true;
         else
             request.setAttribute("errors", pessoa.getErrors());

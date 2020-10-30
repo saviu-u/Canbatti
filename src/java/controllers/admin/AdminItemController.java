@@ -83,7 +83,7 @@ public class AdminItemController extends ControllerBase {
     private boolean formActions(Produtos produto, HttpServletRequest request){
         paramsToObject(produto, ITENS_PARAMS, request);
         
-        if(produto.save())
+        if(produto.update())
             return true;
         else
             request.setAttribute("errors", produto.getErrors());

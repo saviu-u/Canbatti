@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController extends ControllerBase {
     private static final String[] ITENS_PARAMS = {"nomeProd", "tipoProd", "descProd", "quantidade", "precoProd"};
 
-    @RequestMapping("/");
+    @RequestMapping("/")
     public String index(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, true)) return "redirect:login";
         
@@ -46,7 +46,7 @@ public class HomeController extends ControllerBase {
         return "index";
     }
     
-    @RequestMapping(value="/", method={RequestMethod.GET})
+    @RequestMapping(value="/", method={RequestMethod.POST})
     public String indexPost(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, true)) return "redirect:login";
         

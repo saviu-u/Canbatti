@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.Map"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -50,7 +53,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="pessoas.jsp">
+                <a class="nav-link" href="/Canbatti/admin/user">
                   <span data-feather="users"></span>
                   Pessoas
                 </a>
@@ -69,39 +72,28 @@
                   <tr>
                     <th>#</th>
                     <th>Nome Pessoa</th>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>Concluído</th>
+                    <th>CPF</th>
+                    <th>Email</th>
                     <th>Opções</th>
                   </tr>
                 </thead>
                 <tbody>
+                  <%
+                      for(Map<String, Object> param : (List<Map<String, Object>>) request.getAttribute("resources")){
+                          
+                  %>
                   <tr>
-                    <td>1</td>
-                    <td>Teste 1</td>
-                    <td>Pão de hamburger, costela, batata frita, maionese</td>
-                    <td>50,00</td>
+                    <td><%= param.get("idPes") %></td>
+                    <td><%= param.get("nomePes") %></td>
+                    <td><%= param.get("cpf") %></td>
+                    <td><%= param.get("email") %></td>
                     <td>
-                        <input class="concluido" type="checkbox" value="concluido"></input>
-                    </td>
-                    <td>
-                        <a href="admin/user/'${pes.idPes}'" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="teste" class="delete"><i class="material-icons" id="deletePedido" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a href="user/<%= param.get("idPes") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     </td>
                   </tr>
-                   <tr>
-                    <td>2</td>
-                    <td>Teste 2</td>
-                    <td>Pão de hamburger, picanha, salada, maionese</td>
-                    <td>60,00</td>
-                    <td>
-                        <input class="concluido" type="checkbox" value="concluido"></input>
-                    </td>
-                    <td>
-                        <a href="admin/user/'${pes.idPes}'" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="teste" class="delete"><i class="material-icons" id="deletePedido" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                    </td>
-                  </tr>
+                  <%
+                      }
+                  %>
                 </tbody>
               </table>
               <nav aria-label="Navegação de página exemplo">

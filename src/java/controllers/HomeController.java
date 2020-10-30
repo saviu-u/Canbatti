@@ -34,14 +34,6 @@ public class HomeController extends ControllerBase {
         
         request.setAttribute("resources", new Produtos().getResources(page(request)));
         request.setAttribute("pageCount", new Produtos().getResourcesCount());
-        System.out.println(new Produtos().getResources(page(request)));
-        System.out.println(new Produtos().getResourcesCount());
-        System.out.println(request.getRemoteHost());
-        System.out.println(request.getRequestURI());
-        System.out.println(request.getRequestURL());
-        System.out.println(request.getServletPath());
-        
-        System.out.println(request.getRequestURI() + request.getContextPath());
         
         return "index";
     }
@@ -53,9 +45,8 @@ public class HomeController extends ControllerBase {
         List produtos = new Produtos().genericListQuery("Produtos.findAll");
         Pedidos pedido = new Pedidos();
         Produtos produto = new Produtos();
-        //formActions(pedido, produto, produtos, request) return "redirect:";
-        
-        return "index";
+        formActions(pedido, produto, produtos, request);
+        return "redirect:";
     }
     
     private void formActions(Pedidos pedido, Produtos produto, List produtos, HttpServletRequest request){

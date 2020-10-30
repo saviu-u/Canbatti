@@ -7,13 +7,13 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Dashboard</title>
+    <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="<%= request.getContextPath() %>/resources/css/adm.css" rel="stylesheet">
+    <link href="resources/css/adm.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
 
@@ -38,13 +38,13 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="/Canbatti/admin">
+                <a class="nav-link" href="#">
                   <span data-feather="home"></span>
                   Dashboard
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/Canbatti/admin/item">
+                <a class="nav-link" href="#">
                   <span data-feather="shopping-cart"></span>
                   Produtos
                 </a>
@@ -61,46 +61,25 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-            <h1 class="h2">Produtos</h1>
-            <form action="/Canbatti/admin/item/new">
-                <div class="btn-toolbar mb-2 mb-md-0">
-                  <button class="btn btn-block btn-cinza" type="submit" value="produtosnew">Cadastrar Novo</button>
-                </div>
-            </form>    
+            <h1 class="h2">Pessoas</h1>
           </div>
             <div class="table-responsive">
               <table class="table table-striped table-sm">
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Nome Produto</th>
-                    <th>Categoria</th>
-                    <th>Valor</th>
-                    <th>Quantidade</th>
-                    <th>Opções</th>
+                    <th>Nome Pessoa</th>
+                    <th>Email</th>
+                    <th>Administrador</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>1</td>
-                    <td>Picanha</td>
-                    <td>Carne</td>
-                    <td>5,00</td>
-                    <td>50</td>
+                    <td>1,001</td>
+                    <td>Lorem</td>
+                    <td>ipsum</td>
                     <td>
-                        <a href="" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="teste" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Salada</td>
-                    <td>Acompanhamento</td>
-                    <td>2,00</td>
-                    <td>100</td>
-                    <td>
-                        <a href="" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="teste" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <input class="adm" type="checkbox" value="adm"></input>
                     </td>
                   </tr>
                 </tbody>

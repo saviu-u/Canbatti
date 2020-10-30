@@ -68,7 +68,7 @@
             </div>
             <div class="mb-3">
               <label for="senha">Senha</label>
-              <input type="password" class="form-control" id="senha" placeholder="" name="senha" value="<%= Objects.toString(request.getAttribute("senha"), "") %>" required>
+              <input type="password" class="form-control" id="senha" placeholder="" name="senha" value="" required>
               <div class="invalid-feedback">
                 Insira uma senha.
               </div>

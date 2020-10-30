@@ -37,6 +37,11 @@ body {
 .form-signin .form-control:focus {
   z-index: 2;
 }
+
+.erro{
+    color: #D50000;
+    font-weight: bold;
+}
 .form-signin input[type="email"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;

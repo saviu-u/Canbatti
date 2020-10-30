@@ -55,12 +55,6 @@
                   Pessoas
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="admin/user/new">
-                  <span data-feather="users"></span>
-                  Editar Informações dessa Conta
-                </a>
-              </li>
             </ul>
           </div>
         </nav>
@@ -68,14 +62,6 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
             <h1 class="h2">Pedidos</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <option value="Day" selected>Dia</option>
-                <option value="Week">Semana</option> 
-                <option value="Month" >Mês</option>
-                <option value="Year">Ano</option>
-              </select>
-            </div>
           </div>
             <div class="table-responsive">
               <table class="table table-striped table-sm">
@@ -99,7 +85,8 @@
                         <input class="concluido" type="checkbox" value="concluido"></input>
                     </td>
                     <td>
-                        <a href="teste" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a href="admin/user/'${pes.idPes}'" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="teste" class="delete"><i class="material-icons" id="deletePedido" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                   </tr>
                 </tbody>

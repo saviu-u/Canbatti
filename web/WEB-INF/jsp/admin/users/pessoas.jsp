@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Pessoas</title>
 
     <!-- Bootstrap core CSS -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -70,7 +70,7 @@
                     <th>#</th>
                     <th>Nome Pessoa</th>
                     <th>Email</th>
-                    <th>Administrador</th>
+                    <th>Opções</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -79,7 +79,7 @@
                     <td>Lorem</td>
                     <td>ipsum</td>
                     <td>
-                        <input class="adm" type="checkbox" value="adm"></input>
+                        <a href="" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     </td>
                   </tr>
                 </tbody>

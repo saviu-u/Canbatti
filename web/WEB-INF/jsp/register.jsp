@@ -81,7 +81,7 @@
             </div>
             <div class="mb-3">
               <label for="senha">Senha</label>
-              <input type="password" class="form-control" id="senha" placeholder="" name="senha" value="" required>
+              <input type="password" class="form-control" id="senha" placeholder="" name="senha" value="<%= Objects.toString(request.getAttribute("senha"), "") %>" required>
               <div class="invalid-feedback">
                 Insira uma senha.
               </div>
@@ -136,6 +136,9 @@
               <label for="complemento">Complemento<span class="text-muted">(Opcional)</span></label>
               <input type="text" class="form-control" id="complemento" placeholder="" name="complemento" value="<%= Objects.toString(request.getAttribute("complemento"), "") %>">
             </div>
+            <div class="mb-3" id="adm">
+              <input class="concluido" type="checkbox" id="customer"> Administrador</input>
+            </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>
           </form>
@@ -178,6 +181,7 @@
               document.getElementById('cpf').setAttribute("disabled", true);
           }else{
               document.getElementById('cpf').removeAttribute("disabled");
+              document.getElementById('adm').setAttribute("hidden", true);
           }
           
           var sexo = "<%= Objects.toString(request.getAttribute("sexo"), "") %>";

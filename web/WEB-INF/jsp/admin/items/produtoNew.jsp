@@ -49,11 +49,11 @@
               <label for="sexo">Categoria</label>
               <select class="form-control" id="tipoProd" placeholder="" name="tipoProd" required>
                 <option value="" selected>Selecione...</option>
-                <option value="P">Pão</option> 
-                <option value="C" >Carne</option>
-                <option value="A">Acompanhamento</option>
-                <option value="M">Molho</option>
-                <option value="B">Bebida</option>
+                <option value="Pão">Pão</option> 
+                <option value="Carne" >Carne</option>
+                <option value="Acompanhamento">Acompanhamento</option>
+                <option value="Molho">Molho</option>
+                <option value="Bebida">Bebida</option>
               </select>
               <div class="invalid-feedback">
                 Selecione a categoria.

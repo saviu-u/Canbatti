@@ -62,7 +62,7 @@ import org.springframework.util.StringUtils;
     , @NamedQuery(name = "Pessoa.findByAtivo", query = "SELECT p FROM Pessoa p WHERE p.ativo = :ativo")
 
     , @NamedQuery(name = "Pessoa.findByAuth", query = "SELECT p FROM Pessoa p WHERE p.email = :email and p.senha = :senha and p.ativo = true")
-    , @NamedQuery(name = "Pessoa.findUniqueness", query = "SELECT p FROM Pessoa p WHERE (p.email = :email or p.cpf = :cpf) and p.id_pes != :idPes") // Required for uniqueness
+    , @NamedQuery(name = "Pessoa.findUniqueness", query = "SELECT p FROM Pessoa p WHERE (p.email = :email or p.cpf = :cpf) and NOT p.idPes = :idPes") // Required for uniqueness
 })
 public class Pessoa extends DAO implements Serializable {
     

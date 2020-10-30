@@ -55,7 +55,7 @@ public class HomeController extends ControllerBase {
         Produtos produto = new Produtos();
         //formActions(pedido, produto, produtos, request) return "redirect:";
         
-        //return "index";
+        return "index";
     }
     
     private void formActions(Pedidos pedido, Produtos produto, List produtos, HttpServletRequest request){

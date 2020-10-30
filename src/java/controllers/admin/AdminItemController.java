@@ -27,7 +27,7 @@ public class AdminItemController extends ControllerBase {
 
     @RequestMapping
     public String index(HttpServletRequest request, HttpServletResponse response){
-        if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
+        if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         
         request.setAttribute("resources", new Produtos().getResources(page(request)));
         request.setAttribute("pageCount", new Produtos().getResourcesCount());
@@ -39,14 +39,14 @@ public class AdminItemController extends ControllerBase {
     
     @RequestMapping(value="/new", method={RequestMethod.GET})
     public String newGetAction(HttpServletRequest request, HttpServletResponse response){
-        if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
+        if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         
         return "admin/items/form";
     }
     
     @RequestMapping(value="/new", method={RequestMethod.POST})
     public String newPostAction(HttpServletRequest request, HttpServletResponse response){
-        if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
+        if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         Produtos produto = new Produtos();
         if(formActions(produto, request)) return "redirect:";
         
@@ -55,7 +55,7 @@ public class AdminItemController extends ControllerBase {
     
     @RequestMapping(value="/{id}", method={RequestMethod.GET})
     public String editGetAction(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response){
-        if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
+        if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         Produtos produto = Produtos.find(id);
         Map<String, Object> oldParams = produto.getAttributes();
         request.setAttribute("oldParams", oldParams);
@@ -66,7 +66,7 @@ public class AdminItemController extends ControllerBase {
     
     @RequestMapping(value="/{id}", method={RequestMethod.PUT})
     public String editPutAction(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response){
-        if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
+        if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         Produtos produto = Produtos.find(id);
         if(formActions(produto, request)) return "redirect:";
         
@@ -75,7 +75,7 @@ public class AdminItemController extends ControllerBase {
     
     @RequestMapping(value="/#{id}", method={RequestMethod.DELETE})
     public String delete(HttpServletRequest request, HttpServletResponse response){
-        if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
+        if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         
         return "admin/items/form";
     }

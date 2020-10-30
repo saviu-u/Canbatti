@@ -5,21 +5,14 @@
  */
 package controllers;
 
-import java.lang.reflect.InvocationTargetException;
-import java.nio.charset.StandardCharsets;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.*;
-import java.util.Base64;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.Cookie;
 import models.Authentication;
 import models.Endereco;
 import models.Pessoa;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,7 +76,7 @@ public class LoginController extends ControllerBase {
         
         if(user.save()){
             request.setAttribute("email", user.getEmail());
-            return "login";
+            return "redirect:/";
         }
         else{
             System.out.println(user.getErrors());

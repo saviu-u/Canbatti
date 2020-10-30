@@ -1,6 +1,7 @@
 package controllers;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -26,5 +27,11 @@ public abstract class ControllerBase {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    protected void convertAttributes(Map<String, Object> input, HttpServletRequest request){
+        input.keySet().forEach((param) -> {
+            request.setAttribute(param, input.get(param));
+        });
     }
 }

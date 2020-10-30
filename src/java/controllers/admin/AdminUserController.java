@@ -62,12 +62,12 @@ public class AdminUserController extends ControllerBase {
         Pessoa user = Pessoa.find(id);
         Map<String, Object> oldParams = user.getAttributes();
         oldParams.remove("senha");
-        request.setAttribute("oldParams", oldParams);
+        convertAttributes(oldParams, request);
         
         return "register";
     }
     
-    @RequestMapping(value="/{id}", method={RequestMethod.PUT})
+    @RequestMapping(value="/{id}", method={RequestMethod.POST})
     public String editPutAction(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         Pessoa pessoa = Pessoa.find(id);

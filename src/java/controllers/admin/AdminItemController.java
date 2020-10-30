@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Produtos;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/admin/item")
 public class AdminItemController extends ControllerBase {
-    private static final String[] ITENS_PARAMS = {"nomePes", "cpf", "sexo", "email", "telefone1", "telefone2", "senha"};
+    private static final String[] ITENS_PARAMS = {"nomeProd", "tipoProd", "descProd", "quantidade", "precoProd"};
 
     @RequestMapping
     public String index(HttpServletRequest request, HttpServletResponse response){
@@ -52,19 +53,21 @@ public class AdminItemController extends ControllerBase {
         return "admin/items/form";
     }
     
-    @RequestMapping(value="/#{id}", method={RequestMethod.GET})
-    public String editGetAction(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value="/{id}", method={RequestMethod.GET})
+    public String editGetAction(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
-        Produtos produto = Produtos.find(Integer.parseInt(request.getParameter("id")));
+        Produtos produto = Produtos.find(id);
         Map<String, Object> oldParams = produto.getAttributes();
+        request.setAttribute("oldParams", oldParams);
+        System.out.println(oldParams);
         
         return "admin/itemsform";
     }
     
-    @RequestMapping(value="/#{id}", method={RequestMethod.PUT})
-    public String editPutAction(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value="/{id}", method={RequestMethod.PUT})
+    public String editPutAction(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
-        Produtos produto = new Produtos();
+        Produtos produto = Produtos.find(id);
         if(formActions(produto, request)) return "redirect:";
         
         return "admin/items/form";

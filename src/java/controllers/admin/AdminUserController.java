@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import models.Endereco;
 import models.Pessoa;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -55,29 +56,28 @@ public class AdminUserController extends ControllerBase {
         return "register";
     }
     
-    @RequestMapping(value="/#{id}", method={RequestMethod.GET})
-    public String editGetAction(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value="/{id}", method={RequestMethod.GET})
+    public String editGetAction(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
-        Pessoa user = Pessoa.find(Integer.parseInt(request.getParameter("id")));
+        Pessoa user = Pessoa.find(id);
         Map<String, Object> oldParams = user.getAttributes();
         oldParams.remove("senha");
-        
         request.setAttribute("oldParams", oldParams);
         
         return "register";
     }
     
-    @RequestMapping(value="/#{id}", method={RequestMethod.PUT})
-    public String editPutAction(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value="/{id}", method={RequestMethod.PUT})
+    public String editPutAction(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
-        Pessoa pessoa = new Pessoa();
+        Pessoa pessoa = Pessoa.find(id);
         pessoa.setCustomer(false);
         if(formActions(pessoa, new Endereco(), request)) return "redirect:";
         
         return "register";
     }
     
-    @RequestMapping(value="/#{id}", method={RequestMethod.DELETE})
+    @RequestMapping(value="/{id}", method={RequestMethod.DELETE})
     public String delete(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         
@@ -88,13 +88,10 @@ public class AdminUserController extends ControllerBase {
         paramsToObject(pessoa, USER_PARAMS, request);
         paramsToObject(end, END_PARAMS, request);
         
-        if(pessoa.save()){
+        if(pessoa.save())
             return true;
-        }
-        else{
+        else
             request.setAttribute("errors", pessoa.getErrors());
-            request.setAttribute("oldParams", request.getParameterMap());
-        }
         return false;
     }
 }

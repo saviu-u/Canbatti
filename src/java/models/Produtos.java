@@ -122,6 +122,10 @@ public class Produtos extends DAO implements Serializable {
     public void setPrecoProd(BigDecimal precoProd) {
         this.precoProd = precoProd;
     }
+    
+    public void setPrecoProd(String precoProd) {
+        this.precoProd = new BigDecimal(precoProd);
+    }
 
     public Integer getQuantidade() {
         return quantidade;
@@ -129,6 +133,10 @@ public class Produtos extends DAO implements Serializable {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+    
+    public void setQuantidade(String quantidade) {
+        this.quantidade = Integer.parseInt(quantidade);
     }
 
     @XmlTransient

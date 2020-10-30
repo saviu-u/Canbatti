@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.Map"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -74,10 +77,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                 <%
+                  for(Map<String, Object> param : (List<Map<String, Object>>) request.getAttribute("resources")){
+                          
+                  %>
                   <tr>
-                    <td>13</td>
-                    <td>Teste 1</td>
-                    <td>teste1@hotmail.com</td>
+                    <td><%= param.get("idPes") %></td>
+                    <td><%= param.get("nomePes") %></td>
+                    <td><%= param.get("email") %></td>
                     <td>
                         <a href="" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     </td>

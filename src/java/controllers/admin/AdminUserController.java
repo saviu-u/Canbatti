@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/admin/user")
 public class AdminUserController extends ControllerBase {
     private static final String[] USER_PARAMS = {"nomePes", "cpf", "sexo", "email", "telefone1", "telefone2", "senha"};
+    private static final String[] USER_EDIT_PARAMS = {"nomePes", "sexo", "email", "telefone1", "telefone2"};
     private static final String[] END_PARAMS = {"bairro", "numResidencia", "cidade", "estado", "complemento", "rua"};  
     
     @RequestMapping
@@ -36,7 +37,7 @@ public class AdminUserController extends ControllerBase {
         System.out.println(new Pessoa().getResources(page(request)));
         System.out.println(new Pessoa().getResourcesCount());
         
-        return "admin/index";
+        return "admin/users/pessoas";
     }
     
     @RequestMapping(value="/new", method={RequestMethod.GET})
@@ -51,7 +52,7 @@ public class AdminUserController extends ControllerBase {
         if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         Pessoa pessoa = new Pessoa();
         pessoa.setCustomer(false);
-        if(formActions(pessoa, new Endereco(), request)) return "redirect:";
+        if(formActions(pessoa, new Endereco(), request, USER_PARAMS)) return "redirect:";
         
         return "register";
     }
@@ -72,7 +73,7 @@ public class AdminUserController extends ControllerBase {
         if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         Pessoa pessoa = Pessoa.find(id);
         pessoa.setCustomer(false);
-        if(formActions(pessoa, pessoa.getIdEnd(), request)) return "redirect:";
+        if(formActions(pessoa, pessoa.getIdEnd(), request, USER_EDIT_PARAMS)) return "redirect:";
         
         return "register";
     }
@@ -84,8 +85,8 @@ public class AdminUserController extends ControllerBase {
         return "admin/user/form";
     }
     
-    private boolean formActions(Pessoa pessoa, Endereco end, HttpServletRequest request){
-        paramsToObject(pessoa, USER_PARAMS, request);
+    private boolean formActions(Pessoa pessoa, Endereco end, HttpServletRequest request, String[] params){
+        paramsToObject(pessoa, params, request);
         paramsToObject(end, END_PARAMS, request);
         pessoa.setIdEnd(end);
         

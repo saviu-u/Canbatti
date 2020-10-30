@@ -10,13 +10,13 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Pessoas</title>
+    <title>Dashboard</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="resources/css/adm.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/resources/css/adm.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
 
@@ -41,19 +41,19 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/Canbatti/admin">
                   <span data-feather="home"></span>
                   Dashboard
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/Canbatti/admin/item">
                   <span data-feather="shopping-cart"></span>
                   Produtos
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/Canbatti/admin/user">
                   <span data-feather="users"></span>
                   Pessoas
                 </a>
@@ -72,23 +72,28 @@
                   <tr>
                     <th>#</th>
                     <th>Nome Pessoa</th>
+                    <th>CPF</th>
                     <th>Email</th>
                     <th>Opções</th>
                   </tr>
                 </thead>
                 <tbody>
-                 <%
-                  for(Map<String, Object> param : (List<Map<String, Object>>) request.getAttribute("resources")){
+                  <%
+                      for(Map<String, Object> param : (List<Map<String, Object>>) request.getAttribute("resources")){
                           
                   %>
                   <tr>
                     <td><%= param.get("idPes") %></td>
                     <td><%= param.get("nomePes") %></td>
+                    <td><%= param.get("cpf") %></td>
                     <td><%= param.get("email") %></td>
                     <td>
-                        <a href="" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="user/<%= param.get("idPes") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     </td>
                   </tr>
+                  <%
+                      }
+                  %>
                 </tbody>
               </table>
               <nav aria-label="Navegação de página exemplo">

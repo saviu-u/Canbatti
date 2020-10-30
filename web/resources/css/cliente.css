@@ -10,6 +10,10 @@ body {
 .sair {
   margin-left: 86%;
 }
+
+.container{
+    margin-left: 50%;
+}
 .navbar-brand{
     background-color: #D50000;
     border-color: #D50000;
@@ -27,14 +31,7 @@ body {
     background-color: #D50000;
     border-color: #D50000;
 }
-.table-bordered{
-    text-align: center; 
-    vertical-align: middle;
-}
 
-.selecionado{
-    margin-left: 0%;
-}
 /*
  * Sidebar
  */
@@ -135,4 +132,17 @@ a.edit {
 
 .adm{
     margin-left: 12%;
+}
+
+.card {
+}
+.valor{
+    margin-right: 25%;
+}
+.mb-1 {
+  margin-left: 10%;
+}
+
+.sair {
+  margin-left: 86%;
 }

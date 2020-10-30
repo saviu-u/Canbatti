@@ -76,7 +76,7 @@ public class Produtos extends DAO implements Serializable {
     
     // Resources columns
     protected String[] getColumns(){
-        return new String[] {"nomeProd", "descProd", "quantidade", "idProd"};
+        return new String[] {"nomeProd", "descProd", "tipoProd", "quantidade", "idProd"};
     }
     
     public static Produtos find(Integer idProd){

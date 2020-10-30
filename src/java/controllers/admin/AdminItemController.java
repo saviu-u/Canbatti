@@ -50,7 +50,7 @@ public class AdminItemController extends ControllerBase {
         Produtos produto = new Produtos();
         if(formActions(produto, request)) return "redirect:";
         
-        return "admin/items/form";
+        return "admin/items/produtoNew";
     }
     
     @RequestMapping(value="/{id}", method={RequestMethod.GET})
@@ -61,7 +61,7 @@ public class AdminItemController extends ControllerBase {
         request.setAttribute("oldParams", oldParams);
         System.out.println(oldParams);
         
-        return "admin/items/form";
+        return "admin/items/produtoNew";
     }
     
     @RequestMapping(value="/{id}", method={RequestMethod.PUT})
@@ -70,7 +70,7 @@ public class AdminItemController extends ControllerBase {
         Produtos produto = Produtos.find(id);
         if(formActions(produto, request)) return "redirect:";
         
-        return "admin/items/form";
+        return "admin/items/produtoNew";
     }
     
     @RequestMapping(value="/#{id}", method={RequestMethod.DELETE})

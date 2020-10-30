@@ -19,6 +19,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -50,10 +52,13 @@ public class Produtos extends DAO implements Serializable {
     @Column(name = "id_prod")
     private Integer idProd;
     @Size(max = 30)
+    @NotNull
     @Column(name = "nome_prod")
     private String nomeProd;
     @Size(max = 25)
+    @NotNull
     @Column(name = "tipo_prod")
+    @Pattern(regexp="\\A(Pão|Carne|Acompanhamento|Molho|Bebida|)\\Z", message="invalido")
     private String tipoProd;
     @Size(max = 2147483647)
     @Column(name = "desc_prod")
@@ -62,7 +67,9 @@ public class Produtos extends DAO implements Serializable {
     @Min(value=0)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "preco_prod")
     private BigDecimal precoProd;
+    @Basic(optional = false)
     @Column(name = "quantidade")
+    @NotNull
     private Integer quantidade;
     @OneToMany(mappedBy = "idProd")
     private Collection<ItemPedido> itemPedidoCollection;
@@ -73,7 +80,7 @@ public class Produtos extends DAO implements Serializable {
     }
     
     public static Produtos find(Integer idProd){
-        return (Produtos) new Pessoa().genericQuery("Pessoa.findByIdPes", idProd);
+        return (Produtos) new Produtos().genericQuery("Produtos.findByIdProd", idProd);
     }
 
     public Produtos() {

@@ -44,7 +44,7 @@ id_pedido			SERIAL,
 id_pes				INTEGER,
 data_ped			DATE not null,
 status_ped			VARCHAR(1) not null,
-preco_prod			DECIMAL(10,2),
+preco_prod			DECIMAL(10,2) not null,
 CONSTRAINT tb_pedidos_id_pedido PRIMARY KEY(id_pedido),
 CONSTRAINT tb_pedidos_id_pes FOREIGN KEY(id_pes)
 	REFERENCES tb_pessoa(id_pes)

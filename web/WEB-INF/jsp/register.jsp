@@ -33,15 +33,15 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">Nome Completo</label>
-                <input type="text" class="form-control" id="nome" placeholder="" name="nomePes" value="">
+                <input type="text" class="form-control" id="nome" placeholder="" name="nomePes" value="" required>
                 <div class="invalid-feedback">
-                  Insira um nome válido.
+                  Insira um nome.
                 </div>
               </div>
             </div>
             <div class="mb-3">
               <label for="cpf">CPF</label>
-              <input type="text" class="form-control" name="cpf" id="cpf">
+              <input type="text" class="form-control" name="cpf" id="cpf" required>
               <div class="invalid-feedback">
                 Insira o CPF.
               </div>
@@ -60,21 +60,21 @@
             </div>
             <div class="mb-3">
               <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" placeholder="" name="email">
+              <input type="text" class="form-control" id="email" placeholder="" name="email" required>
               <div class="invalid-feedback">
                 Insira o email.
               </div>
             </div>
             <div class="mb-3">
               <label for="senha">Senha</label>
-              <input type="password" class="form-control" id="senha" placeholder="" name="senha">
+              <input type="password" class="form-control" id="senha" placeholder="" name="senha" required>
               <div class="invalid-feedback">
                 Insira uma senha.
               </div>
             </div>
             <div class="mb-3">
               <label for="telefone1">Telefone 1</label>
-              <input type="text" class="form-control" id="telefone1" placeholder="" name="telefone1">
+              <input type="text" class="form-control" id="telefone1" placeholder="" name="telefone1" required>
               <div class="invalid-feedback">
                 Insira o telefone.
               </div>
@@ -85,35 +85,35 @@
             </div>
             <div class="mb-3">
               <label for="estado">Estado</label>
-              <input type="text" class="form-control" id="estado" placeholder="" name="estado">
+              <input type="text" class="form-control" id="estado" placeholder="" name="estado" required>
               <div class="invalid-feedback">
                 Insira o estado(UF).
               </div>
             </div>
             <div class="mb-3">
               <label for="cidade">Cidade</label>
-              <input type="text" class="form-control" id="cidade" placeholder="" name="cidade">
+              <input type="text" class="form-control" id="cidade" placeholder="" name="cidade" required>
               <div class="invalid-feedback">
                 Insira a cidade.
               </div>
             </div>
             <div class="mb-3">
               <label for="bairro">Bairro</label>
-              <input type="text" class="form-control" id="bairro" placeholder="" name="bairro">
+              <input type="text" class="form-control" id="bairro" placeholder="" name="bairro" required>
               <div class="invalid-feedback">
                 Insira o bairro.
               </div>
             </div>
             <div class="mb-3">
               <label for="rua">Rua</label>
-              <input type="text" class="form-control" id="address" placeholder="" name="rua">
+              <input type="text" class="form-control" id="address" placeholder="" name="rua" required>
               <div class="invalid-feedback">
                 Insira a rua.
               </div>
             </div>
             <div class="mb-3">
               <label for="num_residencia">Número Residência</label>
-              <input type="text" class="form-control" id="num_residencia" placeholder="" name="numResidencia">
+              <input type="text" class="form-control" id="num_residencia" placeholder="" name="numResidencia" required>
               <div class="invalid-feedback">
                 Insira o número da residência.
               </div>

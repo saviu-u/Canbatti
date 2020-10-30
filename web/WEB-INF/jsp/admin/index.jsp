@@ -55,6 +55,12 @@
                   Pessoas
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="admin/user/new">
+                  <span data-feather="users"></span>
+                  Editar Informações dessa Conta
+                </a>
+              </li>
             </ul>
           </div>
         </nav>

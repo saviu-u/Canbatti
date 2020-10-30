@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/admin/user")
 public class AdminUserController extends ControllerBase {
-    private static final String[] USER_PARAMS = {"nomePes", "cpf", "email", "telefone1", "telefone2", "senha"};
+    private static final String[] USER_PARAMS = {"nomePes", "cpf", "sexo", "email", "telefone1", "telefone2", "senha"};
     private static final String[] END_PARAMS = {"bairro", "numResidencia", "cidade", "estado", "complemento", "rua"};  
     
     @RequestMapping
@@ -31,9 +31,9 @@ public class AdminUserController extends ControllerBase {
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         
         request.setAttribute("resources", new Pessoa().getResources(page(request)));
-        request.setAttribute("pageCount", new Pessoa().getResourcesCount(true));
-        System.out.println(new Pessoa().getResources(page(request), true));
-        System.out.println(new Pessoa().getResourcesCount(true));
+        request.setAttribute("pageCount", new Pessoa().getResourcesCount());
+        System.out.println(new Pessoa().getResources(page(request)));
+        System.out.println(new Pessoa().getResourcesCount());
         
         return "admin/user/index";
     }
@@ -42,7 +42,7 @@ public class AdminUserController extends ControllerBase {
     public String newGetAction(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         
-        return "admin/user/form";
+        return "register";
     }
     
     @RequestMapping(value="/new", method={RequestMethod.POST})

@@ -37,6 +37,7 @@ public class LoginController extends ControllerBase {
     @RequestMapping(method={RequestMethod.GET})
     public String index(HttpServletRequest request, HttpServletResponse response){
         if(LoginController.Authentication(request, response, true)) return "redirect:/";
+        request.setAttribute("erro", false);
 
         return "login";
     }

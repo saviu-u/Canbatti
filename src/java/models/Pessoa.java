@@ -68,7 +68,7 @@ public class Pessoa extends DAO implements Serializable {
     
     // Resources columns
     protected String[] getColumns(){
-        return new String[] {"nomePes", "email", "cpf", "customer"};
+        return new String[] {"nomePes", "email", "cpf", "customer", "idPes"};
     }
     
     // Values with uniqueness validation

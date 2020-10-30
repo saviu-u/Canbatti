@@ -58,7 +58,6 @@ public class Produtos extends DAO implements Serializable {
     @Size(max = 25)
     @NotNull
     @Column(name = "tipo_prod")
-    @Pattern(regexp="\\A(Pão|Carne|Acompanhamento|Molho|Bebida|)\\Z", message="invalido")
     private String tipoProd;
     @Size(max = 2147483647)
     @Column(name = "desc_prod")

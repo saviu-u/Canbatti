@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="">
 
-    <title>Checkout example for Bootstrap</title>
+    <title>Registrar</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">

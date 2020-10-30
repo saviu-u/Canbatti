@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Dashboard</title>
 
     <!-- Bootstrap core CSS -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -77,10 +77,23 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>1,001</td>
-                    <td>Lorem</td>
-                    <td>ipsum</td>
-                    <td>dolor</td>
+                    <td>1</td>
+                    <td>Teste 1</td>
+                    <td>Pão de hamburger, costela, batata frita, maionese</td>
+                    <td>50,00</td>
+                    <td>
+                        <input class="concluido" type="checkbox" value="concluido"></input>
+                    </td>
+                    <td>
+                        <a href="admin/user/'${pes.idPes}'" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="teste" class="delete"><i class="material-icons" id="deletePedido" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td>2</td>
+                    <td>Teste 2</td>
+                    <td>Pão de hamburger, picanha, salada, maionese</td>
+                    <td>60,00</td>
                     <td>
                         <input class="concluido" type="checkbox" value="concluido"></input>
                     </td>

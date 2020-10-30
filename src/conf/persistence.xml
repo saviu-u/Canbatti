@@ -6,7 +6,10 @@
     <class>models.Authentication</class>
     <class>models.Endereco</class>
     <class>models.Pessoa</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <class>models.Produtos</class>
+    <class>models.ItemPedido</class>
+    <class>models.Pedidos</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>

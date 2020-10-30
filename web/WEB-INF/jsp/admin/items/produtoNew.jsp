@@ -39,7 +39,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">Nome Produto</label>
-                <input type="text" class="form-control" id="nomeProd" placeholder="" name="nome" value="<%= Objects.toString(request.getAttribute("nomeProd"), "") %>">
+                <input type="text" class="form-control" id="nomeProd" placeholder="" name="nomeProd" value="<%= Objects.toString(request.getAttribute("nomeProd"), "") %>">
                 <div class="invalid-feedback">
                   Insira um nome válido.
                 </div>
@@ -47,7 +47,7 @@
             </div>
             <div class="mb-3">
               <label for="sexo">Categoria</label>
-              <select class="form-control" id="categoria" placeholder="" name="categoria" required>
+              <select class="form-control" id="tipoProd" placeholder="" name="tipoProd" required>
                 <option value="" selected>Selecione...</option>
                 <option value="P">Pão</option> 
                 <option value="C" >Carne</option>
@@ -60,6 +60,13 @@
               </div>
             </div>
             <div class="mb-3">
+              <label for="email">Valor</label>
+              <input type="text" class="form-control" id="precoProd" placeholder="" name="valor" value="<%= Objects.toString(request.getAttribute("precoProd"), "") %>">
+              <div class="invalid-feedback">
+                Insira o valor.
+              </div>
+            </div>
+            <div class="mb-3">
               <label for="email">Quantidade</label>
               <input type="text" class="form-control" id="quantidade" placeholder="" name="quantidade" value="<%= Objects.toString(request.getAttribute("quantidade"), "") %>">
               <div class="invalid-feedback">
@@ -68,7 +75,7 @@
             </div>
             <div class="mb-3">
               <label for="cidade">Descrição</label>
-              <input type="text" class="form-control" id="descricao" placeholder="" name="descricao" value="<%= Objects.toString(request.getAttribute("descricao"), "") %>">
+              <input type="text" class="form-control" id="descProd" placeholder="" name="descricao" value="<%= Objects.toString(request.getAttribute("descProd"), "") %>">
             </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>
@@ -111,9 +118,9 @@
         }, false);
       })();
       window.onload = function(){
-          var categoria = "<%= Objects.toString(request.getAttribute("categoria"), "") %>";
+          var categoria = "<%= Objects.toString(request.getAttribute("tipoProd"), "") %>";
           if (categoria){
-              document.getElementById('categoria').value = categoria;
+              document.getElementById('tipoProd').value = categoria;
           }
       };
     </script>

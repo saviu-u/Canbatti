@@ -43,12 +43,6 @@
                   Dashboard
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="users"></span>
-                  Editar Informações da Conta
-                </a>
-              </li>
             </ul>
           </div>
         </nav>
@@ -73,11 +67,12 @@
                 <td>
                   <input class="selecionado" type="radio" value="selecionado"></input>
                 </td>
-                <td>Bootstrap</td>
-                <td>Cristina</td>
+                <td>Pão de Hamburger</td>
+                <td>6.00</td>
                 <td>
                     <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>0</option>
+                        <option value="" selected>1</option>
+                        <option value="">2</option>
                   </select>
                 </td>
               </tr>
@@ -95,11 +90,11 @@
                 <td>
                   <input class="selecionado" type="checkbox" value="selecionado"></input>
                 </td>
-                <td>Bootstrap</td>
-                <td>Cristina</td>
+                <td>Picanha</td>
+                <td>5.00</td>
                 <td>
                     <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>0</option>
+                        <option value="" selected>1</option>
                   </select>
                 </td>
               </tr>
@@ -117,11 +112,23 @@
                 <td>
                   <input class="selecionado" type="checkbox" value="selecionado"></input>
                 </td>
-                <td>Bootstrap</td>
-                <td>Cristina</td>
+                <td>Salada</td>
+                <td>2.00</td>
                 <td>
                     <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>0</option>
+                        <option value="" selected>1</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input class="selecionado" type="checkbox" value="selecionado"></input>
+                </td>
+                <td>Batata frita</td>
+                <td>3.00</td>
+                <td>
+                    <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <option value="" selected>1</option>
                   </select>
                 </td>
               </tr>
@@ -139,11 +146,23 @@
                 <td>
                   <input class="selecionado" type="checkbox" value="selecionado"></input>
                 </td>
-                <td>Bootstrap</td>
-                <td>Cristina</td>
+                <td>Maionese</td>
+                <td>0.50</td>
                 <td>
                     <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>0</option>
+                        <option value="" selected>1</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input class="selecionado" type="checkbox" value="selecionado"></input>
+                </td>
+                <td>Barbecue</td>
+                <td>0.50</td>
+                <td>
+                    <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <option value="" selected>1</option>
                   </select>
                 </td>
               </tr>
@@ -161,11 +180,11 @@
                 <td>
                   <input class="selecionado" type="checkbox" value="selecionado"></input>
                 </td>
-                <td>Bootstrap</td>
-                <td>Cristina</td>
+                <td>Coca cola 2L</td>
+                <td>8.00</td>
                 <td>
                     <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>0</option>
+                        <option value="" selected>1</option>
                   </select>
                 </td>
               </tr>

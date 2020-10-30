@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="java.util.Objects"%>
 <!doctype html>
 <html lang="en">
@@ -43,6 +44,12 @@
             <div class="mb-3">
               <label for="cpf">CPF</label>
               <input type="text" class="form-control" name="cpf" id="cpf" value="<%= Objects.toString(request.getAttribute("cpf"), "") %>" required>
+              <% if (request.getAttribute("errors") != null){
+                  Map<String, String> errors = ((Map<String, String>) request.getAttribute("errors")); 
+                  if(Objects.toString(errors.get("cpf"), "") != "") {%>
+                  <span><%= errors.get("cpf") %></span>
+               <% } 
+                }%>
               <div class="invalid-feedback">
                 Insira o CPF.
               </div>
@@ -62,6 +69,12 @@
             <div class="mb-3">
               <label for="email">Email</label>
               <input type="text" class="form-control" id="email" placeholder="" name="email" value="<%= Objects.toString(request.getAttribute("email"), "") %>" required>
+              <% if (request.getAttribute("errors") != null){
+                  Map<String, String> errors = ((Map<String, String>) request.getAttribute("errors")); 
+                  if(Objects.toString(errors.get("email"), "") != "") {%>
+                  <span><%= errors.get("email") %></span>
+               <% } 
+                }%>
               <div class="invalid-feedback">
                 Insira o email.
               </div>

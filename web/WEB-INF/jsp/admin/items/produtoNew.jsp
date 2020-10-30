@@ -1,3 +1,4 @@
+<%@page import="java.util.Objects"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -38,7 +39,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">Nome Produto</label>
-                <input type="text" class="form-control" id="nome" placeholder="" name="nome" value="">
+                <input type="text" class="form-control" id="nomeProd" placeholder="" name="nome" value="<%= Objects.toString(request.getAttribute("nomeProd"), "") %>">
                 <div class="invalid-feedback">
                   Insira um nome válido.
                 </div>
@@ -60,14 +61,14 @@
             </div>
             <div class="mb-3">
               <label for="email">Quantidade</label>
-              <input type="text" class="form-control" id="quantidade" placeholder="" name="quantidade">
+              <input type="text" class="form-control" id="quantidade" placeholder="" name="quantidade" value="<%= Objects.toString(request.getAttribute("quantidade"), "") %>">
               <div class="invalid-feedback">
                 Insira o quantidade.
               </div>
             </div>
             <div class="mb-3">
               <label for="cidade">Descrição</label>
-              <input type="text" class="form-control" id="descricao" placeholder="" name="descricao">
+              <input type="text" class="form-control" id="descricao" placeholder="" name="descricao" value="<%= Objects.toString(request.getAttribute("descricao"), "") %>">
             </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>
@@ -109,6 +110,12 @@
           });
         }, false);
       })();
+      window.onload = function(){
+          var categoria = "<%= Objects.toString(request.getAttribute("categoria"), "") %>";
+          if (categoria){
+              document.getElementById('categoria').value = categoria;
+          }
+      };
     </script>
   </body>
 </html>

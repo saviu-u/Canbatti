@@ -41,19 +41,19 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="/Canbatti/admin">
+                <a class="nav-link" href="/Canbatti/admin/">
                   <span data-feather="home"></span>
                   Dashboard
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/Canbatti/admin/item">
+                <a class="nav-link" href="/Canbatti/admin/item/">
                   <span data-feather="shopping-cart"></span>
                   Produtos
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/Canbatti/admin/user">
+                <a class="nav-link" href="/Canbatti/admin/user/">
                   <span data-feather="users"></span>
                   Pessoas
                 </a>
@@ -88,7 +88,7 @@
                     <td><%= param.get("cpf") %></td>
                     <td><%= param.get("email") %></td>
                     <td>
-                        <a href="user/<%= param.get("idPes") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="<%= param.get("idPes") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     </td>
                   </tr>
                   <%

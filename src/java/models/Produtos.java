@@ -75,8 +75,9 @@ public class Produtos extends DAO implements Serializable {
     private Collection<ItemPedido> itemPedidoCollection;
     
     // Resources columns
+    @Override
     protected String[] getColumns(){
-        return new String[] {"nomeProd", "descProd", "tipoProd", "quantidade", "idProd"};
+        return new String[] {"nomeProd", "descProd", "tipoProd", "quantidade", "idProd", "precoProd"};
     }
     
     public static Produtos find(Integer idProd){

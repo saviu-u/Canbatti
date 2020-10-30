@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/admin/user")
 public class AdminUserController extends ControllerBase {
     private static final String[] USER_PARAMS = {"nomePes", "cpf", "sexo", "email", "telefone1", "telefone2", "senha"};
-    private static final String[] USER_EDIT_PARAMS = {"nomePes", "sexo", "email", "telefone1", "telefone2"};
+    private static final String[] USER_EDIT_PARAMS = {"nomePes", "sexo", "email", "telefone1", "telefone2", "customer"};
     private static final String[] END_PARAMS = {"bairro", "numResidencia", "cidade", "estado", "complemento", "rua"};  
     
     @RequestMapping

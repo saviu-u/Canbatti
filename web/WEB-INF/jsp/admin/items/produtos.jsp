@@ -40,19 +40,19 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="/Canbatti/admin">
+                <a class="nav-link" href="/Canbatti/admin/">
                   <span data-feather="home"></span>
                   Dashboard
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/Canbatti/admin/item">
+                <a class="nav-link" href="/Canbatti/admin/item/">
                   <span data-feather="shopping-cart"></span>
                   Produtos
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/Canbatti/admin/user">
+                <a class="nav-link" href="/Canbatti/admin/user/">
                   <span data-feather="users"></span>
                   Pessoas
                 </a>
@@ -84,33 +84,22 @@
                 </thead>
                 <tbody>
                 <%
-                      for(Map<String, Object> param : (List<Map<String, Object>>) request.getAttribute("resources")){
+                    for(Map<String, Object> param : (List<Map<String, Object>>) request.getAttribute("resources")){
                           
-                  %>
+                %>
                     <td><%= param.get("idProd") %></td>
                     <td><%= param.get("nomeProd") %></td>
                     <td><%= param.get("tipoProd") %></td>
                     <td><%= param.get("precoProd") %></td>
                     <td><%= param.get("quantidade") %></td>
                     <td>
-                        <a href="item/<%= param.get("idProd") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="<%= param.get("idProd") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a href="teste" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                   </tr>
                   <%
                       }
                   %>
-                  <tr>
-                    <td>2</td>
-                    <td>Salada</td>
-                    <td>Acompanhamento</td>
-                    <td>2,00</td>
-                    <td>100</td>
-                    <td>
-                        <a href="" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="teste" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
               <nav aria-label="Navegação de página exemplo">

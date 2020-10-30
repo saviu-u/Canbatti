@@ -102,7 +102,7 @@ public class DAO {
                         for(java.lang.reflect.Method method : paramDif.keySet()){
                             Object objValue = method.invoke(this);
                             Object insValue = method.invoke(instance);
-                            if(objValue != null && objValue.equals(insValue)) {
+                            if(objValue != null && objValue.equals(insValue) && (this.getPKvalue() == null || !this.getPKvalue().equals(((DAO) instance).getPKvalue()))) {
                                 errors.put(paramDif.get(method), UNIQUE_MESSAGE);
                                 result = false;
                             }
@@ -301,6 +301,11 @@ public class DAO {
             }
         }
         return classes;
+    }
+    
+    
+    protected Integer getPKvalue(){
+        return null;
     }
     
     protected String[] getColumns(){

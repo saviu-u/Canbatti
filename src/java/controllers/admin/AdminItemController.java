@@ -34,14 +34,14 @@ public class AdminItemController extends ControllerBase {
         System.out.println(new Produtos().getResources(page(request)));
         System.out.println(new Produtos().getResourcesCount());
         
-        return "admin/items/index";
+        return "admin/items/produtos";
     }
     
     @RequestMapping(value="/new", method={RequestMethod.GET})
     public String newGetAction(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         
-        return "admin/items/form";
+        return "admin/items/produtoNew";
     }
     
     @RequestMapping(value="/new", method={RequestMethod.POST})
@@ -61,7 +61,7 @@ public class AdminItemController extends ControllerBase {
         request.setAttribute("oldParams", oldParams);
         System.out.println(oldParams);
         
-        return "admin/itemsform";
+        return "admin/items/form";
     }
     
     @RequestMapping(value="/{id}", method={RequestMethod.PUT})
@@ -87,6 +87,7 @@ public class AdminItemController extends ControllerBase {
             return true;
         else
             request.setAttribute("errors", produto.getErrors());
+        System.out.println(produto.getErrors());
         return false;
     }
 }

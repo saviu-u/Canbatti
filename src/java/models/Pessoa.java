@@ -62,9 +62,14 @@ import org.springframework.util.StringUtils;
     , @NamedQuery(name = "Pessoa.findByAtivo", query = "SELECT p FROM Pessoa p WHERE p.ativo = :ativo")
 
     , @NamedQuery(name = "Pessoa.findByAuth", query = "SELECT p FROM Pessoa p WHERE p.email = :email and p.senha = :senha and p.ativo = true")
-    , @NamedQuery(name = "Pessoa.findUniqueness", query = "SELECT p FROM Pessoa p WHERE (p.email = :email or p.cpf = :cpf) and NOT p.idPes = :idPes") // Required for uniqueness
+    , @NamedQuery(name = "Pessoa.findUniqueness", query = "SELECT p FROM Pessoa p WHERE (p.email = :email or p.cpf = :cpf)") // Required for uniqueness
 })
 public class Pessoa extends DAO implements Serializable {
+    
+    @Override
+    protected Integer getPKvalue(){
+        return getIdPes();
+    }
     
     // Resources columns
     protected String[] getColumns(){
@@ -74,7 +79,7 @@ public class Pessoa extends DAO implements Serializable {
     // Values with uniqueness validation
     @Override
     protected String[] getUniqueParams(){
-        return new String[] {"email", "cpf", "idPes"};
+        return new String[] {"email", "cpf"};
     }
     
     // Listing possible models

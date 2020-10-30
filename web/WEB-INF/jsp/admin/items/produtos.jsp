@@ -52,7 +52,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/Canbatti/admin/user">
+                <a class="nav-link" href="#">
                   <span data-feather="users"></span>
                   Pessoas
                 </a>
@@ -83,21 +83,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                    
-                <%for(Map<String, Object> produto : (List<Map<String,Object>>) request.getAttribute("resources")){
-                    produto.get("nome");
-                 }%> 
-                  <tr>
-                    <td>1</td>
-                    <td>Picanha</td>
-                    <td>Carne</td>
-                    <td>5,00</td>
-                    <td>50</td>
+                <%
+                      for(Map<String, Object> param : (List<Map<String, Object>>) request.getAttribute("resources")){
+                          
+                  %>
+                    <td><%= param.get("idProd") %></td>
+                    <td><%= param.get("nomeProd") %></td>
+                    <td><%= param.get("tipoProd") %></td>
+                    <td><%= param.get("precoProd") %></td>
+                    <td><%= param.get("quantidade") %></td>
                     <td>
-                        <a href="" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="user/<%= param.get("idProd") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a href="teste" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                   </tr>
+                  <%
+                      }
+                  %>
                   <tr>
                     <td>2</td>
                     <td>Salada</td>

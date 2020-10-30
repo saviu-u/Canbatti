@@ -117,7 +117,7 @@
                 <td>
                     <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
                         <option value="" selected>1</option>
-                  </select>
+                    </select>
                 </td>
               </tr>
               <tr>

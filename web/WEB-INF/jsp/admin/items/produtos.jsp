@@ -82,6 +82,7 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <c:forEach var="listValue" items="${resources}">
                   <tr>
                     <td>1</td>
                     <td>Picanha</td>

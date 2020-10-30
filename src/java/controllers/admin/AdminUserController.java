@@ -52,7 +52,7 @@ public class AdminUserController extends ControllerBase {
         pessoa.setCustomer(false);
         if(formActions(pessoa, new Endereco(), request)) return "redirect:";
         
-        return "admin/user/form";
+        return "register";
     }
     
     @RequestMapping(value="/#{id}", method={RequestMethod.GET})
@@ -64,7 +64,7 @@ public class AdminUserController extends ControllerBase {
         
         request.setAttribute("oldParams", oldParams);
         
-        return "admin/user/form";
+        return "register";
     }
     
     @RequestMapping(value="/#{id}", method={RequestMethod.PUT})
@@ -74,7 +74,7 @@ public class AdminUserController extends ControllerBase {
         pessoa.setCustomer(false);
         if(formActions(pessoa, new Endereco(), request)) return "redirect:";
         
-        return "admin/user/form";
+        return "register";
     }
     
     @RequestMapping(value="/#{id}", method={RequestMethod.DELETE})

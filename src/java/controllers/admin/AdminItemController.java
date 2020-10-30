@@ -28,19 +28,19 @@ public class AdminItemController extends ControllerBase {
     public String index(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         
-//        request.setAttribute("resources", new Produtos().getResources(page(request)));
-//        request.setAttribute("pageCount", new Produtos().getResourcesCount());
-//        System.out.println(new Produtos().getResources(page(request)));
-//        System.out.println(new Produtos().getResourcesCount());
+        request.setAttribute("resources", new Produtos().getResources(page(request)));
+        request.setAttribute("pageCount", new Produtos().getResourcesCount());
+        System.out.println(new Produtos().getResources(page(request)));
+        System.out.println(new Produtos().getResourcesCount());
         
-        return "admin/item/index";
+        return "admin/items/index";
     }
     
     @RequestMapping(value="/new", method={RequestMethod.GET})
     public String newGetAction(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         
-        return "admin/item/form";
+        return "admin/items/form";
     }
     
     @RequestMapping(value="/new", method={RequestMethod.POST})
@@ -49,7 +49,7 @@ public class AdminItemController extends ControllerBase {
         Produtos produto = new Produtos();
         if(formActions(produto, request)) return "redirect:";
         
-        return "admin/item/form";
+        return "admin/items/form";
     }
     
     @RequestMapping(value="/#{id}", method={RequestMethod.GET})
@@ -58,7 +58,7 @@ public class AdminItemController extends ControllerBase {
         Produtos produto = Produtos.find(Integer.parseInt(request.getParameter("id")));
         Map<String, Object> oldParams = produto.getAttributes();
         
-        return "admin/item/form";
+        return "admin/itemsform";
     }
     
     @RequestMapping(value="/#{id}", method={RequestMethod.PUT})
@@ -67,14 +67,14 @@ public class AdminItemController extends ControllerBase {
         Produtos produto = new Produtos();
         if(formActions(produto, request)) return "redirect:";
         
-        return "admin/item/form";
+        return "admin/items/form";
     }
     
     @RequestMapping(value="/#{id}", method={RequestMethod.DELETE})
     public String delete(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:../login";
         
-        return "admin/item/form";
+        return "admin/items/form";
     }
     
     private boolean formActions(Produtos produto, HttpServletRequest request){

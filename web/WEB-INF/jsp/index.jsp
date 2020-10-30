@@ -56,53 +56,8 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th class="th" scope="col">Selecionado(s)</th>
-                <th scope="col">Pão</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Quantidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input class="selecionado" type="radio" value="selecionado"></input>
-                </td>
-                <td>Pão de Hamburger</td>
-                <td>6.00</td>
-                <td>
-                    <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>1</option>
-                        <option value="">2</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-            <thead>
-              <tr>
                 <th scope="col">Selecionado(s)</th>
-                <th scope="col">Carne</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Quantidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input class="selecionado" type="checkbox" value="selecionado"></input>
-                </td>
-                <td>Picanha</td>
-                <td>5.00</td>
-                <td>
-                    <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>1</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-            <thead>
-              <tr>
-                <th scope="col">Selecionado(s)</th>
-                <th scope="col">Acompanhamento</th>
+                <th scope="col">Categoria</th>
                 <th scope="col">Valor</th>
                 <th scope="col">Quantidade</th>
               </tr>
@@ -126,62 +81,6 @@
                 </td>
                 <td>Batata frita</td>
                 <td>3.00</td>
-                <td>
-                    <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>1</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-            <thead>
-              <tr>
-                <th scope="col">Selecionado(s)</th>
-                <th scope="col">Molho</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Quantidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input class="selecionado" type="checkbox" value="selecionado"></input>
-                </td>
-                <td>Maionese</td>
-                <td>0.50</td>
-                <td>
-                    <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>1</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="selecionado" type="checkbox" value="selecionado"></input>
-                </td>
-                <td>Barbecue</td>
-                <td>0.50</td>
-                <td>
-                    <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>1</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-            <thead>
-              <tr>
-                <th scope="col">Selecionado(s)</th>
-                <th scope="col">Bebida</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Quantidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input class="selecionado" type="checkbox" value="selecionado"></input>
-                </td>
-                <td>Coca cola 2L</td>
-                <td>8.00</td>
                 <td>
                     <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
                         <option value="" selected>1</option>

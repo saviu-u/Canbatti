@@ -52,7 +52,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/Canbatti/admin/user">
                   <span data-feather="users"></span>
                   Pessoas
                 </a>
@@ -93,7 +93,7 @@
                     <td><%= param.get("precoProd") %></td>
                     <td><%= param.get("quantidade") %></td>
                     <td>
-                        <a href="user/<%= param.get("idProd") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="item/<%= param.get("idProd") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a href="teste" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                   </tr>

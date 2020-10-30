@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Produtos.findAll", query = "SELECT p FROM Produtos p")
     , @NamedQuery(name = "Produtos.findAllPaged", query = "SELECT p FROM Produtos p")
     , @NamedQuery(name = "Produtos.findAllPagedCount", query = "SELECT COUNT(1) FROM Produtos p")
-    , @NamedQuery(name = "Produtos.findByIdProd", query = "SELECT p FROM Produtos p WHERE p.idProd = :idProd")
+    , @NamedQuery(name = "Produtos.findByIdProd", query = "SELECT p FROM Produtos p WHERE p.idProd = ?1")
 
     , @NamedQuery(name = "Produtos.findByNomeProd", query = "SELECT p FROM Produtos p WHERE p.nomeProd = :nomeProd")
     , @NamedQuery(name = "Produtos.findByTipoProd", query = "SELECT p FROM Produtos p WHERE p.tipoProd = :tipoProd")

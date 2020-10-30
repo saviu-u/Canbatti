@@ -179,8 +179,10 @@
           var cpf = "<%= Objects.toString(request.getAttribute("cpf"), "") %>";
           if (cpf){
               document.getElementById('cpf').setAttribute("disabled", true);
+              document.getElementById('senha').setAttribute("disabled", true);
           }else{
               document.getElementById('cpf').removeAttribute("disabled");
+              document.getElementById('senha').removeAttribute("disabled");
               document.getElementById('adm').setAttribute("hidden", true);
           }
           

@@ -75,9 +75,9 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>1,001</td>
-                    <td>Lorem</td>
-                    <td>ipsum</td>
+                    <td>13</td>
+                    <td>Teste 1</td>
+                    <td>teste1@hotmail.com</td>
                     <td>
                         <a href="" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     </td>

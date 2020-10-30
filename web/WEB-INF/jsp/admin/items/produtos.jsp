@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.Map"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -82,6 +84,9 @@
                 </thead>
                 <tbody>
                     
+                <%for(Map<String, Object> produto : (List<Map<String,Object>>) request.getAttribute("resources")){
+                    produto.get("nome");
+                 }%> 
                   <tr>
                     <td>1</td>
                     <td>Picanha</td>

@@ -5,11 +5,17 @@
  */
 package controllers;
 
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.*;
+import models.Pedidos;
 import models.Produtos;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,44 +28,50 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController extends ControllerBase {
     private static final String[] ITENS_PARAMS = {"nomeProd", "tipoProd", "descProd", "quantidade", "precoProd"};
 
-//    @RequestMapping("/")
-//    public String index(HttpServletRequest request, HttpServletResponse response){
-//        if(!LoginController.Authentication(request, response, true)) return "redirect:login";
-//        
-//        request.setAttribute("resources", new Produtos().getResources(page(request)));
-//        request.setAttribute("pageCount", new Produtos().getResourcesCount());
-//        System.out.println(new Produtos().getResources(page(request)));
-//        System.out.println(new Produtos().getResourcesCount());
-//        System.out.println(request.getRemoteHost());
-//        System.out.println(request.getRequestURI());
-//        System.out.println(request.getRequestURL());
-//        System.out.println(request.getServletPath());
-//        
-//        System.out.println(request.getRequestURI() + request.getContextPath());
-//        
-//        return "index";
-//    }
-//    
-    @RequestMapping(value="/", method={RequestMethod.GET})
-    public String indexPost(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping("/");
+    public String index(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, true)) return "redirect:login";
         
-        List produtos = new Produtos().genericListQuery("Pedidos.findAll");
-        System.out.println(produtos);
-        Produtos produto = new Produtos();
-//        if(formActions(produto, request)) return "redirect:";
+        request.setAttribute("resources", new Produtos().getResources(page(request)));
+        request.setAttribute("pageCount", new Produtos().getResourcesCount());
+        System.out.println(new Produtos().getResources(page(request)));
+        System.out.println(new Produtos().getResourcesCount());
+        System.out.println(request.getRemoteHost());
+        System.out.println(request.getRequestURI());
+        System.out.println(request.getRequestURL());
+        System.out.println(request.getServletPath());
+        
+        System.out.println(request.getRequestURI() + request.getContextPath());
         
         return "index";
     }
     
-    private boolean formActions(Produtos produto, HttpServletRequest request){
-        paramsToObject(produto, ITENS_PARAMS, request);
+    @RequestMapping(value="/", method={RequestMethod.GET})
+    public String indexPost(HttpServletRequest request, HttpServletResponse response){
+        if(!LoginController.Authentication(request, response, true)) return "redirect:login";
         
-        if(produto.update())
-            return true;
-        else
-            request.setAttribute("errors", produto.getErrors());
-        System.out.println(produto.getErrors());
-        return false;
+        List produtos = new Produtos().genericListQuery("Produtos.findAll");
+        Pedidos pedido = new Pedidos();
+        Produtos produto = new Produtos();
+        //formActions(pedido, produto, produtos, request) return "redirect:";
+        
+        //return "index";
+    }
+    
+    private void formActions(Pedidos pedido, Produtos produto, List produtos, HttpServletRequest request){
+        BigDecimal total = paramsToObject(produto, produtos, ITENS_PARAMS, request);
+        pedido.setItemPedidoCollection(produtos);
+        pedido.setPrecoProd(total);
+        
+        produto.update();
+    }
+    
+    protected BigDecimal paramsToObject(Object object, List produtos, String[] params, HttpServletRequest request){
+        BigDecimal total = new BigDecimal(0);
+        for (Produtos produto : (List<Produtos>) produtos){
+            produto.setQuantidade(request.getParameter(produto.getIdProd().toString()));
+            total = total.add(produto.getPrecoProd().multiply(new BigDecimal(produto.getQuantidade())));
+        }
+        return total;
     }
 }

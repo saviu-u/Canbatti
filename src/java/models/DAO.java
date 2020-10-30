@@ -200,7 +200,7 @@ public class DAO {
 
         dao.openConnection();
         try{
-            Query query = em.createNamedQuery(queryName);
+            TypedQuery query = em.createNamedQuery(queryName, this.getClass());
             result = query.getResultList();
         }
         catch (NoResultException e){

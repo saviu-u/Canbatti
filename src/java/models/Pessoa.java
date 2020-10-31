@@ -246,7 +246,7 @@ public class Pessoa extends DAO implements Serializable {
     }
     
     public void setCustomer(String customer) {
-        this.customer = customer == "false";
+        this.customer = !(customer == "on");
     }
 
     public void setCustomer(boolean customer) {

@@ -34,7 +34,6 @@ public class HomeController extends ControllerBase {
         
         request.setAttribute("resources", new Produtos().getResources(page(request)));
         request.setAttribute("pageCount", new Produtos().getResourcesCount());
-        
         return "index";
     }
     

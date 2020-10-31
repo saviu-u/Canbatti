@@ -119,7 +119,7 @@ public class LoginController extends ControllerBase {
 
             // Redirects user to right path
             String path = "redirect:";
-            if(!user.getCustomer()) path += "admin/user";
+            if(!user.getCustomer()) path += "admin/user/";
             else path += "/";
             return path;
         }

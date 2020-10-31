@@ -63,6 +63,8 @@ public class AdminUserController extends ControllerBase {
         Pessoa user = Pessoa.find(id);
         Map<String, Object> oldParams = user.getAttributes();
         oldParams.remove("senha");
+        System.out.println("!#@!#@!");
+        System.out.println(request.getParameter("customer"));
         convertAttributes(oldParams, request);
         
         return "register";
@@ -73,8 +75,6 @@ public class AdminUserController extends ControllerBase {
         if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         Pessoa pessoa = Pessoa.find(id);
         pessoa.setCustomer(false);
-        System.out.println("!#@!#@!");
-        System.out.println(request.getParameter("customer"));
         
         if(formActions(pessoa, pessoa.getIdEnd(), request, USER_EDIT_PARAMS)) return "redirect:";
         

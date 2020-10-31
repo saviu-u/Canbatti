@@ -58,7 +58,7 @@ public class AdminItemController extends ControllerBase {
         if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         Produtos produto = Produtos.find(id);
         Map<String, Object> oldParams = produto.getAttributes();
-        request.setAttribute("oldParams", oldParams);
+        convertAttributes(oldParams, request);
         System.out.println(oldParams);
         
         return "admin/items/produtoNew";

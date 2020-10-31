@@ -63,8 +63,6 @@ public class AdminUserController extends ControllerBase {
         Pessoa user = Pessoa.find(id);
         Map<String, Object> oldParams = user.getAttributes();
         oldParams.remove("senha");
-        System.out.println("!#@!#@!");
-        System.out.println(request.getParameter("customer"));
         convertAttributes(oldParams, request);
         
         return "register";

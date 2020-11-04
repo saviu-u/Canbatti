@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
+import models.Pessoa;
 import org.springframework.util.StringUtils;
 
 
@@ -33,5 +34,9 @@ public abstract class ControllerBase {
         input.keySet().forEach((param) -> {
             request.setAttribute(param, input.get(param));
         });
+    }
+    
+    protected Pessoa getUser(HttpServletRequest request){
+        return LoginController.AuthenticationModel(request, true).getPessoa();
     }
 }

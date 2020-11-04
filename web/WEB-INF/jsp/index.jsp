@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.Map"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -47,73 +49,53 @@
           </div>
         </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-            <h1 class="h2">Pedidos</h1>
-          </div>
-        <div class="container">
-        <div class="row">
-          <table class="table table-bordered">
+          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+              <h1 class="h2">Pedidos</h1>
+            </div>
+          <div class="container">
+                   <div class="row">
+          <div class="col-md-8 order-md-1">
+            <form class="needs-validation" method="POST" novalidate>
+              <div class="mb-3">
+                <table class="table table-bordered">
             <thead>
               <tr>
-                <th scope="col">Selecionado(s)</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Valor</th>
                 <th scope="col">Quantidade</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <input class="selecionado" type="checkbox" value="selecionado"></input>
-                </td>
-                <td>Salada</td>
-                <td>2.00</td>
-                <td>
-                    <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>1</option>
-                    </select>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="selecionado" type="checkbox" value="selecionado"></input>
-                </td>
-                <td>Batata frita</td>
-                <td>3.00</td>
-                <td>
-                    <select class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <option value="" selected>1</option>
-                  </select>
-                </td>
-              </tr>
+                <%
+                      for(Map<String, Object> param : (List<Map<String, Object>>) request.getAttribute("resources")){
+                          
+                  %>
+                  <tr>
+                    <td><%= param.get("nomeProd") %></td>
+                    <td><%= param.get("precoProd") %></td>
+                    <td>
+                        <select class="btn btn-sm btn-outline-secondary dropdown-toggle" name="<%= param.get("idProd") %>">
+                            <%
+                                for(int i=0 ; i < (Integer) param.get("quantidade") ; i++ ) {
+                            %>
+                            <option value=<%=i%> selected><%=i%></option>
+                            <% } %>
+                        </select>
+                    </td>
+                  </tr>
+                  <%
+                      }
+                  %>
             </tbody>
           </table>  
-          <div class="col-md-4 order-md-2 mb-4">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-              <span class="text-muted">Carrinho</span>
-              <span class="badge badge-secondary badge-pill">3</span>
-            </h4>
-            <ul class="list-group mb-3">
-              <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div>
-                  <h6 class="my-0">Product name</h6>
-                  <small class="text-muted">Brief description</small>
-                </div>
-                <span class="text-muted">$12</span>
-                <a href="teste" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-              </li>
-              <li class="list-group-item d-flex justify-content-between">
-                <span>Total (R$)</span>
-                <strong class="valor">$20</strong>
-              </li>
-            </ul>
+              </div>  
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Pedir</button>
+            </form>
           </div>
-        </div>
-        </div>
       </div>
-    </div>
- </main>    
+   </main>    
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

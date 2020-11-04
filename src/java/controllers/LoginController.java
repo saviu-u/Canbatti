@@ -89,14 +89,18 @@ public class LoginController extends ControllerBase {
     }
     
     public static boolean Authentication(HttpServletRequest request, HttpServletResponse response, boolean customer){
+        return AuthenticationModel(request, customer).getIdPes() != null;
+    }
+    
+    public static Authentication AuthenticationModel(HttpServletRequest request, boolean customer){
         if(request.getCookies() != null){
             for(Cookie cookie : request.getCookies()){
                 if(cookie.getName().equals("Authorization")){
-                    return Authentication.findToken(cookie.getValue(), customer).getIdPes() != null;
+                    return Authentication.findToken(cookie.getValue(), customer);
                 }
             }
         }
-        return false;
+        return new Authentication();
     }
     
     private String resetTokens(Pessoa user, HttpServletResponse response){

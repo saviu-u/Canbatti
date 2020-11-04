@@ -7,11 +7,14 @@ package controllers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.*;
+import models.ItemPedido;
 import models.Pedidos;
 import models.Produtos;
 import org.springframework.stereotype.Controller;
@@ -34,6 +37,7 @@ public class HomeController extends ControllerBase {
         
         request.setAttribute("resources", new Produtos().getResources(page(request)));
         request.setAttribute("pageCount", new Produtos().getResourcesCount());
+        System.out.println(new Produtos().getResources(page(request)));
         return "index";
     }
     
@@ -43,25 +47,43 @@ public class HomeController extends ControllerBase {
         
         List produtos = new Produtos().genericListQuery("Produtos.findAll");
         Pedidos pedido = new Pedidos();
-        Produtos produto = new Produtos();
-        formActions(pedido, produto, produtos, request);
+        formActions(pedido, produtos, request);
         return "redirect:";
     }
     
-    private void formActions(Pedidos pedido, Produtos produto, List produtos, HttpServletRequest request){
-        BigDecimal total = paramsToObject(produto, produtos, ITENS_PARAMS, request);
-        pedido.setItemPedidoCollection(produtos);
+    private void formActions(Pedidos pedido, List produtos, HttpServletRequest request){
+        BigDecimal total = paramsToObject(pedido, produtos, request);
         pedido.setPrecoProd(total);
+        pedido.setDataPed(new Date(System.currentTimeMillis()));
+        pedido.setStatusPed("A");
+        pedido.setIdPes(getUser(request));
         
-        produto.update();
+        pedido.update();
     }
     
-    protected BigDecimal paramsToObject(Object object, List produtos, String[] params, HttpServletRequest request){
+    protected BigDecimal paramsToObject(Pedidos pedido, List produtos, HttpServletRequest request){
+        List<ItemPedido> itemPedidos = new ArrayList();
         BigDecimal total = new BigDecimal(0);
         for (Produtos produto : (List<Produtos>) produtos){
-            produto.setQuantidade(request.getParameter(produto.getIdProd().toString()));
-            total = total.add(produto.getPrecoProd().multiply(new BigDecimal(produto.getQuantidade())));
+            ItemPedido itemPedido = new ItemPedido();
+            itemPedido.setIdProd(produto);
+            itemPedido.setQuantidade(request.getParameter(produto.getIdProd().toString()));
+            itemPedido.setIdPedido(pedido);
+            
+            if(itemPedido.getQuantidade() == 0) continue;
+            
+            produto.setQuantidade(produto.getQuantidade() - itemPedido.getQuantidade());
+            produto.update();
+            
+            BigDecimal valor = produto.getPrecoProd().multiply(new BigDecimal(itemPedido.getQuantidade()));
+
+            itemPedido.setValorTotal(valor);
+            itemPedidos.add(itemPedido);
+            
+            total = total.add(valor);
         }
+
+        pedido.setItemPedidoCollection(itemPedidos);
         return total;
     }
 }

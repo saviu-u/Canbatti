@@ -44,9 +44,15 @@ public class DAO {
     }
     
     public void closeConnnection(){
-        em.getTransaction().commit();
-        em.close();
-        emf.close();
+        try{
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+        }
+        catch(Exception e){
+            System.out.println("ROLLBACK");
+            rollbackConnnection();
+        }
     }
     
     public void rollbackConnnection(){
@@ -124,7 +130,9 @@ public class DAO {
         if(valid()){
             this.openConnection();
             em.merge(this);
-            for(Object entity : getDaoClasses()) em.merge(entity);
+            getDaoClasses().forEach((entity) -> {
+                em.merge(entity);
+            });
             this.closeConnnection();
             return true;
         }

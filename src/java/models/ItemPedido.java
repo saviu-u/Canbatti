@@ -8,6 +8,7 @@ package models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "ItemPedido.findByIdItem", query = "SELECT i FROM ItemPedido i WHERE i.idItem = :idItem")
     , @NamedQuery(name = "ItemPedido.findByQuantidade", query = "SELECT i FROM ItemPedido i WHERE i.quantidade = :quantidade")
     , @NamedQuery(name = "ItemPedido.findByValorTotal", query = "SELECT i FROM ItemPedido i WHERE i.valorTotal = :valorTotal")})
-public class ItemPedido implements Serializable {
+public class ItemPedido extends DAO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -81,6 +82,10 @@ public class ItemPedido implements Serializable {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public void setQuantidade(String quantidade) {
+        this.quantidade = Integer.parseInt(quantidade);
     }
 
     public BigDecimal getValorTotal() {

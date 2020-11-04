@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ItemPedido.findAll", query = "SELECT i FROM ItemPedido i")
     , @NamedQuery(name = "ItemPedido.findByIdItem", query = "SELECT i FROM ItemPedido i WHERE i.idItem = :idItem")
+    , @NamedQuery(name = "ItemPedido.findByIdPedido", query = "SELECT i FROM ItemPedido i WHERE i.idPedido = ?1")
     , @NamedQuery(name = "ItemPedido.findByQuantidade", query = "SELECT i FROM ItemPedido i WHERE i.quantidade = :quantidade")
     , @NamedQuery(name = "ItemPedido.findByValorTotal", query = "SELECT i FROM ItemPedido i WHERE i.valorTotal = :valorTotal")})
 public class ItemPedido extends DAO implements Serializable {
@@ -55,6 +56,19 @@ public class ItemPedido extends DAO implements Serializable {
     @JoinColumn(name = "id_prod", referencedColumnName = "id_prod")
     @ManyToOne
     private Produtos idProd;
+    
+    @Override
+    protected String[] getColumns(){
+        return new String[] {"nomeProd", "quantidade", "preco", "valorTotal"};
+    }
+    
+    public String getNomeProd(){
+        return getIdProd().getNomeProd();
+    }
+    
+    public BigDecimal getPreco(){
+        return getIdProd().getPrecoProd();
+    }
 
     public ItemPedido() {
     }

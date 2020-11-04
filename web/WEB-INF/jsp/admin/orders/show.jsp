@@ -10,13 +10,14 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Dashboard</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="<%= request.getContextPath() %>/resources/css/adm.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
 
   <body>
@@ -57,43 +58,44 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-
-          <h2>Histórico</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Cliente</th>
-                  <th>Data</th>
-                  <th>Status</th>
-                  <th>Total</th>
-                  <th>Opções</th>   
-                </tr>
-              </thead>
-              <tbody>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Ingrediente</th>
+                    <th>Quantidade</th>
+                    <th>Preco</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
                 <%
-                    for(Map<String, Object> param : (List<Map<String, Object>>) request.getAttribute("resources")){
-                %>
-                <tr>
-                  <td><%= param.get("idPedido") %></td>
-                  <td><%= param.get("nomePes") %></td>
-                  <td><%= param.get("readableDate") %></td>
-                  <td><%= param.get("status") %></td>
-                  <td><%= param.get("precoProd") %></td>
-                  <td>
-                      <a href="/Canbatti/admin/<%= param.get("idPedido") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Finalizar">&#xE254;</i></a>
-                  </td>
-                </tr>
-                <%
-                    }
-                %>
-              </tbody>
-            </table>
-          </div>
-        </main>
+                      for(Map<String, Object> param : (List<Map<String, Object>>) request.getAttribute("resources")){
+                          
+                  %>
+                  <tr>
+                    <td></td>
+                    <td><%= param.get("nomeProd") %></td>
+                    <td><%= param.get("quantidade") %></td>
+                    <td><%= param.get("preco") %></td>
+                    <td><%= param.get("valorTotal") %></td>
+                  </tr>
+                  <%
+                      }
+                  %>
+                </tbody>
+              </table>
+              <nav aria-label="Navegação de página exemplo">
+                        <form class="needs-validation" method="POST" novalidate>
+                    <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Finalizar</button>
+                </form>
+              </nav>
+            </div>
+          </main>
+        </div>
       </div>
-    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -107,6 +109,11 @@
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
       feather.replace()
+    </script>
+
+    <!-- Graphs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script>
     </script>
   </body>
 </html>

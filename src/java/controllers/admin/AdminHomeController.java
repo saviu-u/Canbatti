@@ -9,6 +9,7 @@ import controllers.ControllerBase;
 import controllers.LoginController;
 import java.util.Map;
 import javax.servlet.http.*;
+import models.ItemPedido;
 import models.Pedidos;
 import models.Pessoa;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,16 @@ public class AdminHomeController extends ControllerBase {
     
     @RequestMapping(value="/{id}", method={RequestMethod.GET})
     public String editGetAction(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response){
+        if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
+        Pedidos pedido = Pedidos.find(id);
+        request.setAttribute("resources", new ItemPedido().getResources(page(request), ".findByIdPedido", pedido));
+        System.out.println(new ItemPedido().getResources(page(request), ".findByIdPedido", pedido));
+        
+        return "admin/orders/show";
+    }
+    
+    @RequestMapping(value="/{id}", method={RequestMethod.POST})
+    public String editAction(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         Pedidos pedido = Pedidos.find(id);
         pedido.setStatusPed("B");

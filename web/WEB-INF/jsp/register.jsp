@@ -137,7 +137,7 @@
               <input type="text" class="form-control" id="complemento" placeholder="" name="complemento" value="<%= Objects.toString(request.getAttribute("complemento"), "") %>">
             </div>
             <div class="mb-3" id="adm">
-                <input class="concluido" type="checkbox" name="customer" id="customer" <% if(request.getAttribute("customer").equals(false)) out.print("checked"); %>> Administrador</input>
+                <input class="concluido" type="checkbox" name="customer" id="customer" <% if(request.getAttribute("customer") != null && request.getAttribute("customer").equals(false)) out.print("checked"); %>> Administrador</input>
             </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>

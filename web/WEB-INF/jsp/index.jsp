@@ -76,10 +76,11 @@
                     <td><%= param.get("precoProd") %></td>
                     <td>
                         <select class="btn btn-sm btn-outline-secondary dropdown-toggle" name="<%= param.get("idProd") %>">
+                            <option value=0 selected>0</option>
                             <%
-                                for(int i=0 ; i < (Integer) param.get("quantidade") ; i++ ) {
+                                for(int i=1 ; i <= (Integer) param.get("quantidade") ; i++ ) {
                             %>
-                            <option value=<%=i%> selected><%=i%></option>
+                            <option value=<%=i%>><%=i%></option>
                             <% } %>
                         </select>
                     </td>

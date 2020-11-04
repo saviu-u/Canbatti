@@ -20,8 +20,8 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-      <a class="" href="#"><img class="logo" src="<%= request.getContextPath() %>/resources/imagens/logo.png" width="100" height="40"></a>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+      <a class="navbar-brand" href="/Canbatti/admin/"><img class="logo" src="<%= request.getContextPath() %>/resources/imagens/logo.png" width="100" height="40"></a>
       <ul class="navbar-nav sair">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="#">Sign out</a>
@@ -33,18 +33,13 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
       </div>
     </nav>
-      <br><br><br>
+    <br><br><br>
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
+            <br>
             <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link" href="/Canbatti/admin/">
-                  <span data-feather="home"></span>
-                  Dashboard
-                </a>
-              </li>
               <li class="nav-item">
                 <a class="nav-link" href="/Canbatti/admin/item/">
                   <span data-feather="shopping-cart"></span>
@@ -94,7 +89,6 @@
                     <td><%= param.get("quantidade") %></td>
                     <td>
                         <a href="<%= param.get("idProd") %>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="teste" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                   </tr>
                   <%

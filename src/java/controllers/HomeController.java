@@ -29,15 +29,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class HomeController extends ControllerBase {
-    private static final String[] ITENS_PARAMS = {"nomeProd", "tipoProd", "descProd", "quantidade", "precoProd"};
-
     @RequestMapping("/")
     public String index(HttpServletRequest request, HttpServletResponse response){
         if(!LoginController.Authentication(request, response, true)) return "redirect:login";
         
         request.setAttribute("resources", new Produtos().getResources(page(request)));
         request.setAttribute("pageCount", new Produtos().getResourcesCount());
-        System.out.println(new Produtos().getResources(page(request)));
+        request.setAttribute("orderResources", new Pedidos().getResources(page(request), ".findByIdPes", getUser(request)));
+        System.out.println(new Pedidos().getResources(page(request), ".findByIdPes", getUser(request)));
         return "index";
     }
     

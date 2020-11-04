@@ -38,11 +38,12 @@
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
+              <br>
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="home"></span>
-                  Dashboard
+                    Dashboard
                 </a>
               </li>
             </ul>
@@ -96,7 +97,38 @@
             </form>
           </div>
       </div>
-   </main>    
+   </main>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" style="margin-top: 40px;">
+        <h2>Histórico</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Cliente</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for(Map<String, Object> orderParam : (List<Map<String, Object>>) request.getAttribute("orderResources")){
+                        %>
+                        <tr>
+                            <td><%= orderParam.get("idPedido") %></td>
+                            <td><%= orderParam.get("nomePes") %></td>
+                            <td><%= orderParam.get("readableDate") %></td>
+                            <td><%= orderParam.get("status") %></td>
+                            <td><%= orderParam.get("precoProd") %></td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                    </tbody>
+                </table>
+            </div>
+        </main>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

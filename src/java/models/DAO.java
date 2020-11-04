@@ -34,7 +34,7 @@ public class DAO {
     protected static EntityManager em;
     Map<String, String> errors = new HashMap();
     
-    private final Integer LIMIT = 12;
+    private final Integer LIMIT = 100;
     private final String UNIQUE_MESSAGE = "já existe";
     
     public void openConnection(){
@@ -65,10 +65,8 @@ public class DAO {
         return errors;
     }
 
-
-
     public boolean valid(){
-        return valid(new ArrayList<Object>());
+        return valid(new ArrayList<>());
     }
     
     public boolean valid(List<Object> entities){
@@ -202,13 +200,20 @@ public class DAO {
         return result;
     }
     
-    public List<Object> genericListQuery(String queryName){
+    public List<Object> genericListQuery(String queryName) {
+        return genericListQuery(queryName, new HashMap());
+    }
+    
+    public List<Object> genericListQuery(String queryName, Map<Object, Object> params){
         List<Object> result;
         DAO dao = new DAO();
 
         dao.openConnection();
         try{
             TypedQuery query = em.createNamedQuery(queryName, this.getClass());
+            params.keySet().forEach((param) -> {
+                query.setParameter((String) param, params.get(param));
+            });
             result = query.getResultList();
         }
         catch (NoResultException e){
@@ -231,14 +236,18 @@ public class DAO {
         return result;
     }
     
-    public List<Map<String, Object>> getResources(Integer page, Object... args){
+    public List<Map<String, Object>> getResources(Integer page, Object... params){
+        return getResources(page, ".findAllPaged",params);
+    }
+    
+    public List<Map<String, Object>> getResources(Integer page, String queryName, Object... args){
         if(getColumns() == null){
             System.out.println("Define the columns first");
             return null;
         }
         
         this.openConnection();
-        TypedQuery tempQuery = em.createNamedQuery(this.getClass().getSimpleName() + ".findAllPaged", this.getClass());
+        TypedQuery tempQuery = em.createNamedQuery(this.getClass().getSimpleName() + queryName, this.getClass());
         for(Object arg : args) tempQuery = tempQuery.setParameter(1, arg);
         
         Integer offset = (page - 1) * LIMIT;

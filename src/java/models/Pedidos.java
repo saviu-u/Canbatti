@@ -7,9 +7,12 @@ package models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pedidos.findAll", query = "SELECT p FROM Pedidos p")
-    , @NamedQuery(name = "Pedidos.findByIdPedido", query = "SELECT p FROM Pedidos p WHERE p.idPedido = :idPedido")
+    , @NamedQuery(name = "Pedidos.findAllPaged", query = "SELECT p FROM Pedidos p ORDER BY p.statusPed")
+    , @NamedQuery(name = "Pedidos.findByIdPes", query = "SELECT p FROM Pedidos p WHERE p.idPes = ?1 ORDER BY p.statusPed")
+    , @NamedQuery(name = "Pedidos.findByIdPedido", query = "SELECT p FROM Pedidos p WHERE p.idPedido = ?1")
     , @NamedQuery(name = "Pedidos.findByDataPed", query = "SELECT p FROM Pedidos p WHERE p.dataPed = :dataPed")
     , @NamedQuery(name = "Pedidos.findByStatusPed", query = "SELECT p FROM Pedidos p WHERE p.statusPed = :statusPed")
     , @NamedQuery(name = "Pedidos.findByPrecoProd", query = "SELECT p FROM Pedidos p WHERE p.precoProd = :precoProd")})
@@ -68,6 +73,28 @@ public class Pedidos extends DAO implements Serializable {
     private Pessoa idPes;
     @OneToMany(mappedBy = "idPedido")
     private List<ItemPedido> itemPedidoCollection;
+    
+    @Override
+    protected String[] getColumns(){
+        return new String[] {"idPedido", "readableDate", "precoProd", "status", "nomePes"};
+    }
+    
+    public String getNomePes(){
+        return getIdPes().getNomePes();
+    }
+    
+    public String getReadableDate(){
+        return new SimpleDateFormat("dd/MM/yyyy").format(dataPed);
+    }
+    
+    public String getStatus(){
+        Map<String, String> convertionMap = new HashMap(){{
+            put("A", "Em andamento");
+            put("B", "Finalizado");
+        }};
+        
+        return convertionMap.get(getStatusPed());
+    }
 
     public Pedidos() {
     }
@@ -80,6 +107,10 @@ public class Pedidos extends DAO implements Serializable {
         this.idPedido = idPedido;
         this.dataPed = dataPed;
         this.statusPed = statusPed;
+    }
+    
+    public static Pedidos find(Integer idPed){
+        return (Pedidos) new Pedidos().genericQuery("Pedidos.findByIdPedido", idPed);
     }
 
     public Integer getIdPedido() {

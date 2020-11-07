@@ -25,7 +25,7 @@
       </button>
        <ul class="navbar-nav sair">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
+          <a class="nav-link" href="/Canbatti/login/logout/">Sign out</a>
         </li>
        </ul>
       <div class="collapse navbar-collapse" id="navbarCollapse">

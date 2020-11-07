@@ -52,6 +52,7 @@ public class AdminUserController extends ControllerBase {
         if(!LoginController.Authentication(request, response, false)) return "redirect:/login";
         Pessoa pessoa = new Pessoa();
         pessoa.setCustomer(false);
+        pessoa.setAtivo(true);
         if(formActions(pessoa, new Endereco(), request, USER_PARAMS)) return "redirect:";
         
         return "register";

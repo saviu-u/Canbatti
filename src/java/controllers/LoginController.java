@@ -13,6 +13,7 @@ import models.Authentication;
 import models.Endereco;
 import models.Pessoa;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +41,14 @@ public class LoginController extends ControllerBase {
         if(LoginController.Authentication(request, response, true)) return "redirect:/";
 
         return "register";
+    }
+    
+    @RequestMapping(value="/logout", method={RequestMethod.GET})
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        AuthenticationModel(request, true).destroy();
+        AuthenticationModel(request, false).destroy();
+        
+        return "redirect:/login";
     }
     
     @RequestMapping(method={RequestMethod.POST})
